@@ -1,0 +1,17 @@
+1579508126510	Rename type 'friend'
+1579508170767	Rename type 'friendManager'
+1579658784412	Rename package 'friend'
+1579661318700	Rename type 'FriendManager'
+1579661329764	Copy compilation unit
+1579661364939	Move compilation unit
+1579661369715	Move compilation unit
+1579663438285	Rename field 'sexL'
+1579663793814	Rename field 'shopping'
+1579666444353	Rename method 'insertArticle'
+1579669820993	Rename field 'phone1'
+1579669828461	Rename field 'phone2'
+1579669834254	Rename field 'phone3'
+1579671177141	Rename field 'listJ'
+1579688595889	Rename field 'mod'
+1579688603606	Rename field 'del'
+1579690947841	Rename local variable 'index'

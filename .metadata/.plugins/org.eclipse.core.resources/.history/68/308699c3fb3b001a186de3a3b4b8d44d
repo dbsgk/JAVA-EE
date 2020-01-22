@@ -1,0 +1,11 @@
+package dbtest.dao;
+
+public class InsertTest {
+	public InsertTest() throws ClassNotFoundException {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+	}
+	public static void main(String[] args) {
+		
+	}
+}

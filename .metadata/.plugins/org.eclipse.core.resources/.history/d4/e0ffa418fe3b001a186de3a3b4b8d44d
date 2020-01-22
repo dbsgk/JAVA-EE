@@ -1,0 +1,16 @@
+package dbtest.dao;
+
+public class InsertTest {
+	public InsertTest() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("driver loading success");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public static void main(String[] args) {
+		InsertTest it = new InsertTest();
+	}
+}

@@ -1,0 +1,49 @@
+package com.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Student_t {
+	private String driver = "oracle.jdbc.driver.OracleDriver";
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String username = "c##java";
+	private String password = "bit";
+	
+	private Connection conn;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	
+	public Student_t() {
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+	}
+	public Connection getConnection() {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url,username,password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
+	public void menu() {
+		System.out.println("****************");
+		System.out.println("     관리");
+		System.out.println("****************");
+		System.out.println("   1. 입력");
+		System.out.println("   2. 검색");
+		System.out.println("   3. 삭제");
+		System.out.println("   4. 종료");
+		System.out.println("****************");
+		System.out.print("번호선택: ");
+	}
+	public static void main(String[] args) {
+		
+	}
+}

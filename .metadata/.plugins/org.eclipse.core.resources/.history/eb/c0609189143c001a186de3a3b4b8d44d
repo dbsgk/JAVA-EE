@@ -1,0 +1,54 @@
+package dbtest.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class SelectTest {
+	public SelectTest() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("driver loading  success");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	public Connection getConnection() {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","c##java","bit");
+			System.out.println("connection success");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
+	public void selectArticle() {
+		Connection conn = this.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from dbtest";
+		try {
+			pstmt = conn.prepareStatement(sql); //생성
+			
+			pstmt.executeUpdate();//실행 - 결과물을 가져와야 함.
+			rs = pstmt.executeQuery();
+			System.out.println(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {//연결 끊을 때는 역순으로
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public static void main(String[] args) {
+		new SelectTest().selectArticle();
+	}
+}
