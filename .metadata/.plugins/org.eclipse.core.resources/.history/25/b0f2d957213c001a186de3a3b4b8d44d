@@ -1,9 +1,0 @@
-package com.dao;
-
-public class Student {
-	public static void main(String[] args) {
-		double a = 25.34567;
-		Math.round(a);//¿Ã¸²
-		System.out.println(Math.round(a*1000/1000));
-	}
-}

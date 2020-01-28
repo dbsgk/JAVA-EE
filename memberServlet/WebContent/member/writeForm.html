@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+<form name="writeForm" method="post" action="http://localhost:8080/memberServlet/member">
+<h2>회원가입</h2>
+<table border="1" cellspacing="0" cellpadding="3">
+	<tr>
+		<td align="center">이름</td>
+		<td><input type="text" placeholder="이름 입력" name="name"></td>
+	</tr>
+	<tr>
+		<td align="center">아이디</td>
+		<td>
+		<input type="text" placeholder="아이디 입력" name="id" size="25">
+		<input type="button" value="중복체크" onclick="checkId()">
+		</td>
+	</tr>
+	<tr>
+		<td align="center">비밀번호</td>
+		<td><input type="password" name="pwd" id="pwd" size="30"></td>
+	</tr>
+	<tr>
+		<td align="center">재확인</td>
+		<td><input type="password" name="repwd" size="30"></td>
+	</tr>
+	<tr>
+		<td align="center">성별</td>
+		<td>
+			<fieldset>
+			<input type="radio" value="0" name="gender" checked>남
+			<input type="radio" value="1" name="gender">여
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">이메일</td>
+		<td><input type="text" name="email1" size="15">
+		@
+		<input type="text" list="email2" placeholder="직접 입력" style="width: 130px;">
+		<datalist id="email2">
+		  <option value="gmail.com">
+		  <option value="hanmail.net">
+		  <option value="naver.com">
+		</datalist>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">핸드폰</td>
+		<td>
+		<select name="tel1" style="width: 60px;">
+			    <option value="010">010</option>
+			    <option value="011">011</option>
+			    <option value="016">016</option>
+			    <option value="017">017</option>
+			    <option value="019">019</option>
+		</select>-
+		<input type="text" name="tel2" style="width: 60px;">-<input type="text" name="tel3" style="width: 60px;">
+		</td>
+	</tr>
+	<tr>
+		<td align="center" rowspan="3">주소</td>
+		<td><input type="text" name="zipcode" id="zipcode" size="6" readonly> 
+		<input type="button" value="우편번호검색" onclick="checkPost()"></td>
+	</tr>
+	<tr>
+		<td><input type="text" placeholder="주소" name="addr1" id="addr1" size="40" readonly></td>
+	</tr>
+	<tr>
+		<td><input type="text" placeholder="상세 주소" name="addr2" id="addr2" size="40"></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+		<input type="button" value="화원가입" onclick="javascript:checkWriteForm()"><!-- 자바스크립트만 -->
+		<input type="reset" value="다시작성">
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript" src="http://localhost:8080/memberServlet/js/member.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- <script type="text/javascript" src="http://localhost:8080/memberServlet/js/member.js">/* 약식주소: ../js/member.js */ -->
+
+
+</body>
+</html>

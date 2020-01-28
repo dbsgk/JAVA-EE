@@ -40,4 +40,6 @@
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 <fullyQualifiedTypeName name="javax.swing.event.ListSelectionListener"/>
+<fullyQualifiedTypeName name="member.dao.MemberDAO"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
 </qualifiedTypeNameHistroy>

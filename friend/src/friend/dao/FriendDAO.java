@@ -165,8 +165,16 @@ public class FriendDAO {
 		Connection conn = this.getConnection();
 		
 		int index=1;
-		String sql = "update friend set name=?,tel1=?,tel2=?,tel3=?,gender=?,read=?,movie=?,music=?,game=?,shop=? where "
-				+ "seq=?";
+		String sql = "update friend set name=?"
+									+ ",tel1=?"
+									+ ",tel2=?"
+									+ ",tel3=?"
+									+ ",gender=?"
+									+ ",read=?"
+									+ ",movie=?"
+									+ ",music=?"
+									+ ",game=?"
+									+ ",shop=? where seq=?";
 		try {
 			pstmt = conn.prepareStatement(sql); //»ý¼º
 			pstmt.setString(index++, friendDTO.getName());
@@ -197,7 +205,7 @@ public class FriendDAO {
 		
 	}
 	public void delete(FriendDTO friendDTO) {
-Connection conn = this.getConnection();
+		Connection conn = this.getConnection();
 		
 		int index=1;
 		String sql = "delete friend where seq=?";
@@ -218,5 +226,5 @@ Connection conn = this.getConnection();
 				e.printStackTrace();
 			}
 		}
-	}
+	}//delete
 }

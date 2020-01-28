@@ -182,14 +182,16 @@ public class FriendManager extends JFrame implements ActionListener{
                 	phoneC.setSelectedItem(list2.get(selectedIndex).getTel1());
             		phone1.setText(list2.get(selectedIndex).getTel2());
             		phone2.setText(list2.get(selectedIndex).getTel3());
-            		male.setSelected(list2.get(selectedIndex).getGender()==0?true:false);
-            		female.setSelected(list2.get(selectedIndex).getGender()==1?true:false);
-            		book.setSelected(list2.get(selectedIndex).getRead()==1?true:false);
-            		movie.setSelected(list2.get(selectedIndex).getMovie()==1?true:false);
-            		music.setSelected(list2.get(selectedIndex).getMusic()==1?true:false);
-            		game.setSelected(list2.get(selectedIndex).getGame()==1?true:false);
-            		shop.setSelected(list2.get(selectedIndex).getShop()==1?true:false);
+            		male.setSelected(list2.get(selectedIndex).getGender()==0);// = list2.get(selectedIndex).getGender()==0?true:false
+            		female.setSelected(list2.get(selectedIndex).getGender()==1);//어차피 1이면 true가 들어갈거고 아니면 false들어갈거라서 뒤에 삭제.
+            		book.setSelected(list2.get(selectedIndex).getRead()==1);
+            		movie.setSelected(list2.get(selectedIndex).getMovie()==1);
+            		music.setSelected(list2.get(selectedIndex).getMusic()==1);
+            		game.setSelected(list2.get(selectedIndex).getGame()==1);
+            		shop.setSelected(list2.get(selectedIndex).getShop()==1);
                 }
+                area.setText("");
+                
                 enroll.setEnabled(false);
                 modify.setEnabled(true);
                 delete.setEnabled(true);
@@ -234,10 +236,12 @@ public class FriendManager extends JFrame implements ActionListener{
 			clear();
 			//결과
 			area.setText("\n\t 데이터를 등록하였습니다.");
+			list2.add(dto);
 			model.addElement(dto);
 			
 		}//enroll
 		else if(e.getSource()==modify) {
+			if(nameT.getText()==null || nameT.getText().equals(""))return;
 			list2.get(selectedIndex).setName(nameT.getText());
 			list2.get(selectedIndex).setTel1((String)phoneC.getSelectedItem());
 			list2.get(selectedIndex).setTel2((String)phone1.getText());
@@ -251,11 +255,17 @@ public class FriendManager extends JFrame implements ActionListener{
 			//DB로 보내기
 			dao.modify(list2.get(selectedIndex));
 			//결과
+			model.removeAllElements();
+			for(FriendDTO data: list2) {
+				model.addElement(data);
+			}
 			area.setText("\n\t 데이터를 수정하였습니다.");
 			
 		}else if(e.getSource()==delete) {
 			dao.delete(list2.get(selectedIndex));
+			list2.remove(selectedIndex);
 			area.setText("\n\t 데이터를 삭제하였습니다.");
+			
 			model.removeAllElements();
 			for(FriendDTO data: list2) {
 				model.addElement(data);

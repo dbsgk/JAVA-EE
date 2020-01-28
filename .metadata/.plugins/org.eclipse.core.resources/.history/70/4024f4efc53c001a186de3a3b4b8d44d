@@ -1,5 +1,0 @@
-package friend.bean;
-
-public class FriendDTO {
-	private String name;
-}

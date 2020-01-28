@@ -1,0 +1,22 @@
+<!-- http://localhost:8080/testServlet/exam/parameter.html  -->
+<!-- http://localhost:8080/testServlet/param?name=hong&age=25  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><!-- <input type = "text">  -->
+<title>Insert title here</title>
+</head>
+<body>
+<form method="get" action="http://localhost:8080/testServlet/param"><!-- method="get": 주소에 데이터 가져가는 방식(default)  action="주소-url"-->
+<table border="1">
+	<tr>
+		<td align="center">이      름</td>
+		<td><input type = "text" name="name" placeholder="이름입력"></td></tr>
+	<tr>
+		<td width="70" align="center">나     이</td>
+		<td><input type = "text" size="7" name="age" maxlength="3" placeholder="나이입력"></td></tr>
+	<tr><td colspan="2" align="center"><input type = "submit" value="보내기"><input type = "reset" value="취소"></td></tr>
+</table>
+</form>
+</body>
+</html>
