@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+/* cellpadding */
+th, td { padding: 5px; }
+
+/* cellspacing */
+table { border-collapse: separate; border-spacing: 5px; } /* cellspacing="5" */
+table { border-collapse: collapse; border-spacing: 0; }   /* cellspacing="0" */
+
+/* valign */
+th, td { vertical-align: top; }
+
+/* align (center) */
+table { margin: 0 auto; }
+
+</style>
+</head>
+<body>
+<h2>글쓰기</h2>
+<form name="writeForm" action="/guestbookServlet_yunha/GuestbookWriteServlet" method="get">
+<table border="1" >
+	<tr>
+		<td align="center">작성자</td>
+		<td>
+		<input type="text" placeholder="작성자 입력" name="name"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">이메일</td>
+		<td>
+		<input type="text" placeholder="이메일 입력" name="email"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">홈페이지</td>
+		<td>
+		<input type="text" value="http://" name="homepage"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">제목</td>
+		<td>
+		<input type="text" placeholder="제목을 입력" name="subject"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" height="50">내용</td>
+		<td>
+		<textarea name="content" cols="30" rows="10" placeholder="내용을 입력"></textarea><!-- textarea닫기태그를 아랫줄로 내리면 공백이 들어감.  -->
+		</td>
+	</tr>
+	<tr>
+		<td align="center" colspan="2">
+		<input type="button" value="글작성" onclick="checkWrite()"/>
+		<input type="reset" value="다시작성" />
+		<input type="button" value="글목록" onclick="location.href='/guestbookServlet_yunha/GuestbookListServlet'"/>
+		</td>
+	</tr>
+</table>
+</form>
+<script>
+function checkWrite(){
+	if(document.writeForm.subject.value==""){
+		alert("제목을 입력하세요");/* 프로그램 짤 때 alert 쓰면 안됨(테스트용으로만)-- 다른 기능도 전부 멈추기 때문 */
+		document.writeForm.subject.focus();
+	}
+	else if(document.writeForm.content.value==""){
+		alert("내용을 입력하세요");
+		document.writeForm.content.focus();		
+	}else
+		document.writeForm.submit();
+}
+</script>
+</body>
+</html>

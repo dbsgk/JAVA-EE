@@ -5,7 +5,7 @@
 <title>회원가입</title>
 </head>
 <body>
-<form name="writeForm" method="post" action="http://localhost:8080/memberServlet/member">
+<form name="writeForm" method="post" action="http://localhost:8080/memberServlet/WriteServlet">
 <h2>회원가입</h2>
 <table border="1" cellspacing="0" cellpadding="3">
 	<tr>
@@ -15,8 +15,9 @@
 	<tr>
 		<td align="center">아이디</td>
 		<td>
-		<input type="text" placeholder="아이디 입력" name="id" size="25">
-		<input type="button" value="중복체크" onclick="checkId()">
+		<input type="text" placeholder="아이디 입력" name="id" size="25" >
+		<input type="button" value="중복체크" onclick="checkId()" />
+		<input type="hidden" name="check" value=""/>
 		</td>
 	</tr>
 	<tr>
@@ -40,7 +41,7 @@
 		<td align="center">이메일</td>
 		<td><input type="text" name="email1" size="15">
 		@
-		<input type="text" list="email2" placeholder="직접 입력" style="width: 130px;">
+		<input type="text" list="email2" name="email2" placeholder="직접 입력" style="width: 130px;">
 		<datalist id="email2">
 		  <option value="gmail.com">
 		  <option value="hanmail.net">

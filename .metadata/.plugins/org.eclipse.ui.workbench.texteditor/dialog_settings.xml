@@ -12,6 +12,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="// TODO Auto-generated method stub"/>
 			<item value="int selectedIndex"/>
 			<item value="name"/>
 			<item value="trim"/>

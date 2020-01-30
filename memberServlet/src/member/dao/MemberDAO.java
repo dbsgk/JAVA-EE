@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import member.bean.MemberDTO;
+
 public class MemberDAO {
 	private static MemberDAO instance=null;
 	private String driver = "oracle.jdbc.driver.OracleDriver";
@@ -67,26 +69,53 @@ public class MemberDAO {
 		}
 		return exist;
 	}
-	public boolean isLoginCheck(String id, String pwd) {
-		boolean loginCheck = false;
-		String sql = "select id from member where id=? and pwd=?";
+//	public boolean isLoginCheck(String id, String pwd) {
+//		boolean loginCheck = false;
+//		String sql = "select id from member where id=? and pwd=?";
+//		this.getConnection();
+//		try {
+//			System.out.println(id);
+//			System.out.println(pwd);
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, id);
+//			pstmt.setString(2, pwd);
+//			
+//			rs = pstmt.executeQuery();
+//			if(rs.next()) {
+//				loginCheck = true;
+//				System.out.println("로그인 성공");
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				if(pstmt!=null)pstmt.close();
+//				if(conn!=null)conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//		System.out.println(loginCheck);
+//		return loginCheck;
+//	}
+	public String login(String id, String pwd) {
+		String sql = "select * from member where id=? and pwd=?";
+		String name = null;
 		this.getConnection();
 		try {
-			System.out.println(id);
-			System.out.println(pwd);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
 			
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				loginCheck = true;
-				System.out.println("로그인 성공");
-			}
+			if(rs.next())
+				name = rs.getString(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			try {
+				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			} catch (SQLException e) {
@@ -94,18 +123,30 @@ public class MemberDAO {
 			}
 			
 		}
-		System.out.println(loginCheck);
-		return loginCheck;
+		return name;
 	}
-	public String getName(String id) {
-		String sql = "select name from member where id=?";
-		String name = null;
+	public int memberInsert(MemberDTO memberDTO) {
 		this.getConnection();
+		String sql = "insert into member values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
+		String name = null;
+		int index=1;
+		int su =0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(index++, memberDTO.getName());
+			pstmt.setString(index++, memberDTO.getId());
+			pstmt.setString(index++, memberDTO.getPwd());
+			pstmt.setString(index++, memberDTO.getGender());
+			pstmt.setString(index++, memberDTO.getEmail1());
+			pstmt.setString(index++, memberDTO.getEmail2());
+			pstmt.setString(index++, memberDTO.getTel1());
+			pstmt.setString(index++, memberDTO.getTel2());
+			pstmt.setString(index++, memberDTO.getTel3());
+			pstmt.setString(index++, memberDTO.getZipcode());
+			pstmt.setString(index++, memberDTO.getAddr1());
+			pstmt.setString(index++, memberDTO.getAddr2());
 			
-			rs = pstmt.executeQuery();
+			su = pstmt.executeUpdate();
 			if(rs.next())
 				name = rs.getString(1);
 		} catch (SQLException e) {
@@ -119,6 +160,6 @@ public class MemberDAO {
 			}
 			
 		}
-		return name;
+		return su;
 	}
 }

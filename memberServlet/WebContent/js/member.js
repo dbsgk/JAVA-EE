@@ -1,3 +1,4 @@
+//var count=0;
 function checkWriteForm(){
 	//유효성 체크
 	if(document.writeForm.name.value==""){
@@ -8,6 +9,16 @@ function checkWriteForm(){
 		alert("아이디를 입력하세요");
 		document.writeForm.id.focus();		
 	}
+	else if(document.writeForm.check.value != document.writeForm.id.value){
+		alert("중복체크 하세요");
+	}
+	
+//	else if(count==0){
+//		alert("아이디 중복체크 하세요");
+//	}
+//	else if(document.writeForm.id.value!=checkVId){
+//		alert("다시 중복체크 하세요");
+//	}
 	//else if(document.writeForm.pwd.value=="")
 	else if(document.getElementById("pwd").value==""){
 		alert("비밀번호를 입력하세요");
@@ -63,14 +74,18 @@ function checkPost(){//우편번호 알림창
 
 function checkId(){
 	let sId = document.writeForm.id.value;
+	opener.writeForm.check.value = opener.writeForm.id.value;
+
 	if(sId=="")
 		alert("먼저 아이디를 입력하세요");
-	else
+	else{
+		count++;
 		window.open("http://localhost:8080/memberServlet/CheckIdServlet?id="+sId,"","width=300 height=100 left=500 top=100");
 		//== window.open("http://localhost:8080/memberServlet/member/checkId.html","","width=300 height=100");
+	}
 	
 }
-function checkLogin(){
+function checkLoginForm(){
 	if(document.loginForm.id.value==""){
 		alert("아이디를 입력하세요");
 		document.loginForm.id.focus();		
@@ -81,4 +96,11 @@ function checkLogin(){
 		document.loginForm.pwd.focus();		
 	}else
 		document.loginForm.submit();
+}
+//var checkVId=null;
+function checkIdClose(id){
+//	checkVId = id;
+	opener.writeForm.id.value = id; //팝업창에서 아이디 전달
+	window.close();					//윈도우 창닫기
+	opener.writeForm.pwd.focus();	//다음 입력창인 비번으로 초점이동
 }

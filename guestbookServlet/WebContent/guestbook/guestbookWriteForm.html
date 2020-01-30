@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>방명록</title>
+    <style>
+      .key{text-align:center;}
+      textarea{overflow-y: scroll;}
+    </style>
+  </head>
+  <body>
+    <h1>글쓰기</h1>
+    <form name="guestbookWriteForm" method="post" action="/guestbookServlet/GuestbookWriteServlet">
+    <table border=1 cellpadding="3" cellspacing="0">
+      <tr>
+        <td class='key'>작성자</td>
+        <td class='value'>
+          <input type="text" name="name" placeholder="작성자 입력" size="25">
+        </td>
+      </tr>
+      <tr>
+        <td class='key'>이메일</td>
+        <td class='value'>
+          <input type="text" name="email" placeholder="이메일 입력" size="35">
+        </td>
+      </tr>
+      <tr>
+        <td class='key'>홈페이지</td>
+        <td class='value'>
+          <input type="text" name="homepage" value="http://" size="40" onfocus="this.value = this.value;">
+        </td>
+      </tr>
+      <tr>
+        <td class='key'>제목</td>
+        <td class='value'>
+          <input type="text" name="subject" placeholder="제목 입력" size="50">
+        </td>
+      </tr>
+      <tr>
+        <td class='key'>내용</td>
+        <td class='value'>
+          <textarea name="content" placeholder="내용 입력" cols="50" rows="10"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+          <input type="button" value="글작성" onclick="checkGuestbookWriteForm()">
+          <input type="reset" value="다시작성">
+          <input type="button" value="글목록" 
+          onclick="location.href='/guestbookServlet/GuestbookListServlet?pg=1'">
+        </td>
+      </tr>
+      </table>
+    </form>
+  </body>
+  <script type="text/javascript" src="../js/guestbook.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
+

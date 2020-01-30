@@ -28,11 +28,21 @@ public class CheckIdServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");
-		System.out.println("id="+id);
-		if(exist) 
-			out.println(id+"는(은) 사용 불가능");
-		else if(!exist) 
-				out.println(id+"는(은) 사용 가능");
+		out.println("<form method='get' action='http://localhost:8080/memberServlet/CheckIdServlet'>");
+		if(exist) {
+			out.println(id+"는(은) 사용 불가능<br><br>");
+			out.println("<br>");
+			out.println("아이디");
+			out.println("<input type='text' name='id'>");
+			out.println("<input type='submit' value='중복체크'>");
+		}else if(!exist) {
+			out.println(id+"는(은) 사용 가능 <br>");
+			out.println("<input type='button' value='사용하기' onClick='checkIdClose(\""+id+"\")'>");
+		}
+		
+		out.println("</form>");
+		out.println("<script type=\"text/javascript\" src='/memberServlet/js/member.js'>");
+		out.println("</script>");
 		out.println("</body>");
 		out.println("</html>");
 	
