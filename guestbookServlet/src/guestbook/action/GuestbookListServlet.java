@@ -20,14 +20,14 @@ public class GuestbookListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		//데이터
-		int pg = Integer.parseInt(request.getParameter("pg"));
+		int pg = Integer.parseInt(request.getParameter("pg"));//1
 		
 		//DB
 		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
 
 		//페이징 처리 - 1페이지당 3개씩
-		int endNum = pg*3;
-		int startNum = endNum-2;
+		int endNum = pg*3;//  !!!paging!!!
+		int startNum = endNum-2;//!!!paging!!!
 		int totalA = guestbookDAO.getTotalA();
 		int totalP = (totalA+2)/3;//(총 글의 수 +2) /3
 		
@@ -80,6 +80,7 @@ public class GuestbookListServlet extends HttpServlet {
 				out.println("</tr>");
 				out.println("</table>");
 				out.println("<hr color='red' width='500' align='left'>");
+				//out.println("<hr color='red' width='500' align='left'>");
 			}//for
 		}
 		out.println("</body>");

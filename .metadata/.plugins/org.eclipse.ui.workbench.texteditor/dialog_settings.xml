@@ -5,13 +5,14 @@
 		<item key="DIALOG_Y_ORIGIN" value="259"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="name"/>
+		<item key="selection" value="pg"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="pg"/>
 			<item value="// TODO Auto-generated method stub"/>
 			<item value="int selectedIndex"/>
 			<item value="name"/>

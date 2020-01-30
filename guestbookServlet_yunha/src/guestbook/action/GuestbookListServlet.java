@@ -19,45 +19,63 @@ public class GuestbookListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//데이터
+		int pg = Integer.parseInt(request.getParameter("pg"));
+		
+		//페이징처리
+		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
+		int endNum = pg*3;
+		int startNum = endNum-2;
+		int totalA = guestbookDAO.getTotalA();//전체 글 수
+		int totalP = (totalA+2)/3;				//전체 페이지 수
 		
 		//DB
-		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
 		List<GuestbookDTO> list = guestbookDAO.getList(); //DTO받아옴
 		//응답
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<head>");
+		out.println("<style>\r\n" + 
+				"hr{\r\n" + 
+				"	border-color: red;\r\n" + 
+				"	width:880px; \r\n" + 
+				"    margin-left: 0;\r\n" + 
+				"}\r\n" + 
+				"\r\n" + 
+				"</style>");
+		
+		
 		out.println("<title>글목록</title></head>");
 		out.println("<body>");
 		for(GuestbookDTO d : list) {
-		out.println("<form action='/guestbookServlet_yunha/GuestbookListServlet>");
-		out.println("	<table width=\"800\" border=\"3\" cellspacing=\"0\" cellpadding=\"5\">");
-		out.println("		<tr>");
-		out.println("			<td width=\"80\" align=\"center\">작성자</td>");
-		out.println("			<td>"+d.getName()+"</td>");
-		out.println("			<td width=\"80\" align=\"center\">작성일</td>");
-		out.println("			<td>"+d.getLogtime()+"</td>");
-		out.println("		</tr>");
-		out.println("		<tr>");
-		out.println("			<td align=\"center\">이메일</td>");
-		out.println("			<td colspan=\"3\">"+d.getEmail()+"</td>");
-		out.println("		</tr>");
-		out.println("		<tr>");
-		out.println("			<td align=\"center\">홈페이지</td>");
-		out.println("			<td colspan=\"3\">"+d.getHomepage()+"</td>");
-		out.println("		</tr>");
-		out.println("		<tr>");
-		out.println("			<td align=\"center\">제목</td>");
-		out.println("			<td colspan=\"3\">"+d.getSubject()+"</td>");
-		out.println("		</tr>");
-		out.println("		<tr>");
-		out.println("			<td colspan=\"4\">");
-		out.println("			<textarea name=\"content\" cols=\"120\" rows=\"10\">"+d.getContent()+"</textarea>");
-		out.println("			</td>");
-		out.println("		</tr>");
-		out.println("	</table>");
-		out.println("	</form>");
+			out.println("<form action='/guestbookServlet_yunha/GuestbookListServlet>");
+			out.println("	<table width=\"800\" border=\"3\" cellspacing=\"0\" cellpadding=\"5\">");
+			out.println("		<tr>");
+			out.println("			<td width=\"80\" align=\"center\">작성자</td>");
+			out.println("			<td>"+d.getName()+"</td>");
+			out.println("			<td width=\"80\" align=\"center\">작성일</td>");
+			out.println("			<td>"+d.getLogtime()+"</td>");
+			out.println("		</tr>");
+			out.println("		<tr>");
+			out.println("			<td align=\"center\">이메일</td>");
+			out.println("			<td colspan=\"3\">"+d.getEmail()+"</td>");
+			out.println("		</tr>");
+			out.println("		<tr>");
+			out.println("			<td align=\"center\">홈페이지</td>");
+			out.println("			<td colspan=\"3\">"+d.getHomepage()+"</td>");
+			out.println("		</tr>");
+			out.println("		<tr>");
+			out.println("			<td align=\"center\">제목</td>");
+			out.println("			<td colspan=\"3\">"+d.getSubject()+"</td>");
+			out.println("		</tr>");
+			out.println("		<tr>");
+			out.println("			<td colspan=\"4\">");
+			out.println("			<textarea name=\"content\" cols=\"120\" rows=\"10\">"+d.getContent()+"</textarea>");
+			out.println("			</td>");
+			out.println("		</tr>");
+			out.println("	</table>");
+			out.println("	</form>");
+			out.println("<hr>");
 		}
 		out.println("</body>");
 		out.println("<html>");

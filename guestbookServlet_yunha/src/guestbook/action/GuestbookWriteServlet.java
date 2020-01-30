@@ -42,7 +42,7 @@ public class GuestbookWriteServlet extends HttpServlet {
 		out.println("<html>");
 		out.println("<body>");
 		if(checkWrite) out.println("작성하신 글을 저장하였습니다.<br>");
-		out.println("<a href= '/guestbookServlet_yunha/GuestbookListServlet'>글목록</a>");
+		out.println("<a href= '/guestbookServlet_yunha/GuestbookListServlet?pg=1'>글목록</a>");
 		out.println("</body>");
 		out.println("</html>");
 	}
