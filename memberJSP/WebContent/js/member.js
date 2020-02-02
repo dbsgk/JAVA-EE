@@ -1,16 +1,17 @@
 function checkId(){
 	let sId = document.writeForm.id.value;
-	opener.writeForm.check.value = opener.writeForm.id.value;
+//	opener.writeForm.check.value = opener.writeForm.id.value;
 
 	if(sId=="")
 		alert("먼저 아이디를 입력하세요");
 	else{
 		count++;
-		window.open("http://localhost:8080/memberServlet/CheckIdServlet?id="+sId,"","width=300 height=100 left=500 top=100");
+		window.open("http://localhost:8080/memberJSP/member/checkId.jsp?id="+sId,"","width=300 height=100 left=500 top=100");
 		//== window.open("http://localhost:8080/memberServlet/member/checkId.html","","width=300 height=100");
 	}
 	
 }
+var count=0;
 function checkWriteForm(){
 	if(document.writeForm.name.value == ""){
 		alert("이름을 입력해주세요");
@@ -18,15 +19,23 @@ function checkWriteForm(){
 	else if(document.writeForm.id.value == ""){
 		alert("아이디를 입력해주세요");
 	}
-	else if(document.writeForm.id.value != document.writeForm.id.value){
-		alert("아이디 중복체크해주세요");
+//	else if(count==0){
+//		alert("아이디 중복체크 하세요");
+//	}
+//	else if(document.writeForm.id.value!=checkVId){
+//		alert("다시 중복체크 하세요");
+//	}
+	else if(document.writeForm.id.value != document.writeForm.check.value){
+		alert("아이디 중복체크 해주세요");
 	}
-	else if(document.writeForm.id.value == ""){
-		alert("아이디를 입력해주세요");
+	else if(document.writeForm.pwd.value == ""){
+		alert("비밀번호를 입력해주세요");
 	}
-	else if(document.writeForm.id.value == ""){
-		alert("아이디를 입력해주세요");
+	else if(document.writeForm.pwd.value != document.writeForm.repwd.value){
+		alert("비밀번호가 다릅니다. 다시 입력해주세요");
 	}
+	else
+		document.writeForm.submit();
 }
 function checkPost(){
 	new daum.Postcode({
@@ -69,4 +78,24 @@ function checkPost(){
             document.getElementById("addr2").focus();
         }
     }).open();
+}
+
+function checkLoginForm(){
+	if(document.loginForm.id.value==""){
+		alert("아이디를 입력하세요");
+		document.loginForm.id.focus();		
+	}
+	else if(document.loginForm.pwd.value==""){
+		alert("비밀번호를 입력하세요");
+		document.loginForm.pwd.focus();		
+	}else
+		document.loginForm.submit();
+}
+//var checkVId=null;
+function checkIdClose(id){
+	checkVId = id;
+	opener.writeForm.id.value = id; //팝업창에서 아이디 전달
+	opener.writeForm.check.value = id;
+	window.close();					//윈도우 창닫기
+	opener.writeForm.pwd.focus();	//다음 입력창인 비번으로 초점이동
 }

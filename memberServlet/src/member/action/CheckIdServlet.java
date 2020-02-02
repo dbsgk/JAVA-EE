@@ -24,28 +24,40 @@ public class CheckIdServlet extends HttpServlet {
 		boolean exist = memberDAO.isExistId(id);
 		
 		//응답
-		response.setContentType("text/html;charset=UTF-8");//모든 컨텐츠타입을 html, utf-8로 알겠다.
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println("<html>");
+		out.println("<html>"); 
 		out.println("<body>");
 		out.println("<form method='get' action='http://localhost:8080/memberServlet/CheckIdServlet'>");
 		if(exist) {
 			out.println(id+"는(은) 사용 불가능<br><br>");
-			out.println("<br>");
 			out.println("아이디");
 			out.println("<input type='text' name='id'>");
 			out.println("<input type='submit' value='중복체크'>");
-		}else if(!exist) {
-			out.println(id+"는(은) 사용 가능 <br>");
-			out.println("<input type='button' value='사용하기' onClick='checkIdClose(\""+id+"\")'>");
-		}
-		
-		out.println("</form>");
-		out.println("<script type=\"text/javascript\" src='/memberServlet/js/member.js'>");
-		out.println("</script>");
+			
+		}else {
+			out.println(id+"는(은) 사용 가능<br><br>");
+			out.println("<input type='button' value='사용하기' onclick='checkIdClose(\""+id+"\")'>");
+		}			
+		out.println("</form>");	
 		out.println("</body>");
+		out.println("<script src='/memberServlet/js/member.js'>");
+		out.println("</script>");
 		out.println("</html>");
-	
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,13 +15,15 @@ import member.dao.MemberDAO;
 @WebServlet("/WriteServlet")
 public class WriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//데이터
-		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
+       
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    			throws ServletException, IOException {
+    	//데이터
+    	request.setCharacterEncoding("UTF-8");
+    	
+    	String name = request.getParameter("name");
 		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		String pwd = request.getParameter("pwd");	
 		String gender = request.getParameter("gender");
 		String email1 = request.getParameter("email1");
 		String email2 = request.getParameter("email2");
@@ -31,8 +33,7 @@ public class WriteServlet extends HttpServlet {
 		String zipcode = request.getParameter("zipcode");
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
-		
-		//DB
+    	
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setName(name);
 		memberDTO.setId(id);
@@ -46,24 +47,36 @@ public class WriteServlet extends HttpServlet {
 		memberDTO.setZipcode(zipcode);
 		memberDTO.setAddr1(addr1);
 		memberDTO.setAddr2(addr2);
-
-		MemberDAO memberDAO = MemberDAO.getInstance();
-		int su = memberDAO.memberInsert(memberDTO);
 		
-		//응답
-		response.setContentType("text/html; charset=UTF-8");
+    	//DB
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		int su = memberDAO.write(memberDTO);
+			
+    	//응답
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");
-		if(su==1) {
+		if(su==1) 
 			out.println("회원가입 성공");
-		}else {
+		else 
 			out.println("회원가입 실패");
-		}
 		out.println("</body>");
 		out.println("</html>");
 	}
-	
 
 }
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+

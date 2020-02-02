@@ -86,5 +86,4 @@ public class MemberDTO {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	
 }

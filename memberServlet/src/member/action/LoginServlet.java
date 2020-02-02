@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.dao.MemberDAO;
 
-//@WebServlet("/LoginServlet")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,22 +22,32 @@ public class LoginServlet extends HttpServlet {
 		
 		//DB
 		MemberDAO memberDAO = MemberDAO.getInstance();
-//		boolean loginCheck = memberDAO.isLoginCheck(id,pwd);
-		String name = memberDAO.login(id,pwd);
+		String name = memberDAO.login(id, pwd);
 		
 		//응답
-		response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");
+		
 		if(name!=null) {
 			out.println(name+"님 로그인");
 		}else {
-			out.println("아이디 또는 비밀번호가 맞지 않습니다.");
-			
+			out.println("로그인 실패");
 		}
 		out.println("</body>");
 		out.println("</html>");
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+

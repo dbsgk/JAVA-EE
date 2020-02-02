@@ -22,17 +22,18 @@
 	<tr>
 		<td align="center">아이디</td>
 		<td>
-		<input type="text" name="id">
+		<input type="text" name="id" id="id">
 		<input type="button" value="중복체크" onclick="javascript:checkId()">
+		<input type="hidden" name="check" value="">
 		</td>
 	</tr>
 	<tr>
 		<td align="center">비밀번호</td>
-		<td><input type="text" name="pwd"></td>
+		<td><input type="password" name="pwd"></td>
 	</tr>
 	<tr>
 		<td align="center">재확인</td>
-		<td><input type="text" name="repwd"></td>
+		<td><input type="password" name="repwd"></td>
 	</tr>
 	<tr>
 		<td align="center">성별</td>
@@ -70,12 +71,12 @@
 	<tr>
 		<td rowspan="3" align="center">주소</td>
 		<td>
-		<input type="text" name="zipcode" id="zipcode" size="5">
+		<input type="text" name="zipcode" id="zipcode" size="5" readonly>
 		<input type="button" value="우편번호검색" onclick="checkPost()">
 		</td>
 	</tr>
 	<tr>
-		<td><input name="addr1" id="addr1" type="text" placeholder="주소" ></td>
+		<td><input name="addr1" id="addr1" type="text" placeholder="주소" readonly></td>
 	</tr>
 	<tr>
 		<td><input name="addr2" id="addr2" type="text" placeholder="상세 주소"></td>
@@ -88,7 +89,7 @@
 	</tr>
 	</table>
 	</form>
-</body>
 <script type="text/javascript" src="http://localhost:8080/memberJSP/js/member.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</body>
 </html>

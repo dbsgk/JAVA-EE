@@ -1,38 +1,21 @@
-//var count=0;
 function checkWriteForm(){
 	//유효성 체크
-	if(document.writeForm.name.value==""){
-		alert("이름을 입력하세요");/* 프로그램 짤 때 alert 쓰면 안됨(테스트용으로만)-- 다른 기능도 전부 멈추기 때문 */
-		document.writeForm.name.focus();
-	}
-	else if(document.writeForm.id.value==""){
+	if(document.writeForm.name.value=="")
+		alert("이름을 입력하세요");
+	else if(document.writeForm.id.value=="")
 		alert("아이디를 입력하세요");
-		document.writeForm.id.focus();		
-	}
-	else if(document.writeForm.check.value != document.writeForm.id.value){
-		alert("중복체크 하세요");
-	}
-	
-//	else if(count==0){
-//		alert("아이디 중복체크 하세요");
-//	}
-//	else if(document.writeForm.id.value!=checkVId){
-//		alert("다시 중복체크 하세요");
-//	}
 	//else if(document.writeForm.pwd.value=="")
-	else if(document.getElementById("pwd").value==""){
+	else if(document.getElementById("pwd").value=="")	
 		alert("비밀번호를 입력하세요");
-		document.writeForm.pwd.focus();		
-	}
-	else if(document.writeForm.pwd.value!=document.writeForm.repwd.value){
-		alert("비밀번호가 맞지 않습니다.");
-		document.writeForm.repwd.focus();
-	}
+	else if(document.writeForm.pwd.value != document.writeForm.repwd.value)
+		alert("비밀번호가 맞지 않습니다");
+	else if(document.writeForm.id.value != document.writeForm.check.value)
+		alert("중복체크 하세요");
 	else
-		document.writeForm.submit();//writeForm안에 action찾아가라.
+		document.writeForm.submit();
 }
 
-function checkPost(){//우편번호 알림창
+function checkPost(){
 	new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -60,7 +43,11 @@ function checkPost(){//우편번호 알림창
                 if(data.buildingName !== '' && data.apartment === 'Y'){
                     extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
-            
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                           
             } 
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
@@ -74,33 +61,48 @@ function checkPost(){//우편번호 알림창
 
 function checkId(){
 	let sId = document.writeForm.id.value;
-	opener.writeForm.check.value = opener.writeForm.id.value;
-
-	if(sId=="")
+	if(sId=="") 
 		alert("먼저 아이디를 입력하세요");
-	else{
-		count++;
-		window.open("http://localhost:8080/memberServlet/CheckIdServlet?id="+sId,"","width=300 height=100 left=500 top=100");
-		//== window.open("http://localhost:8080/memberServlet/member/checkId.html","","width=300 height=100");
-	}
-	
+	else
+		window.open("http://localhost:8080/memberServlet/CheckIdServlet?id="+sId
+				,""
+				,"width=300 height=100 left=500 top=100");
 }
+
+function checkIdClose(id){
+	opener.writeForm.id.value = id;
+	opener.writeForm.check.value = id;
+	window.close();
+	opener.writeForm.pwd.focus();	
+}
+
 function checkLoginForm(){
-	if(document.loginForm.id.value==""){
+	if(document.loginForm.id.value=="")
 		alert("아이디를 입력하세요");
-		document.loginForm.id.focus();		
-	}
-	//else if(document.writeForm.pwd.value=="")
-	else if(document.loginForm.pwd.value==""){
+	else if(document.loginForm.pwd.value=="")	
 		alert("비밀번호를 입력하세요");
-		document.loginForm.pwd.focus();		
-	}else
+	else
 		document.loginForm.submit();
 }
-//var checkVId=null;
-function checkIdClose(id){
-//	checkVId = id;
-	opener.writeForm.id.value = id; //팝업창에서 아이디 전달
-	window.close();					//윈도우 창닫기
-	opener.writeForm.pwd.focus();	//다음 입력창인 비번으로 초점이동
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
