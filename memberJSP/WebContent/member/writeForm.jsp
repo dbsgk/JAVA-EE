@@ -71,12 +71,12 @@
 	<tr>
 		<td rowspan="3" align="center">주소</td>
 		<td>
-		<input type="text" name="zipcode" id="zipcode" size="5" readonly>
+		<input type="text" name="zipcode" id="zipcode" size="5" >
 		<input type="button" value="우편번호검색" onclick="checkPost()">
 		</td>
 	</tr>
 	<tr>
-		<td><input name="addr1" id="addr1" type="text" placeholder="주소" readonly></td>
+		<td><input name="addr1" id="addr1" type="text" placeholder="주소" ></td>
 	</tr>
 	<tr>
 		<td><input name="addr2" id="addr2" type="text" placeholder="상세 주소"></td>

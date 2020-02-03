@@ -24,7 +24,7 @@ response.setContentType("text/html;charset=UTF-8");//모든 컨텐츠타입을 h
 <input type='submit' value='중복체크'>
 <%}else if(!exist) {%>
 <%=id %>는(은) 사용 가능 <br>
-<input type='button' value='사용하기' onClick='checkIdClose("<%=id%>")'>
+<input type='button' value='사용하기' onClick="checkIdClose('<%=id%>')"> 
 <%}%>
 </form>
 <script type="text/javascript" src='/memberJSP/js/member.js'>

@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import member.bean.MemberDTO;
+import member.bean.PostDTO;
 
 public class MemberDAO {
 	private static MemberDAO instance;
@@ -97,7 +100,6 @@ public class MemberDAO {
 	public int memberInsert(MemberDTO memberDTO) {
 		this.getConnection();
 		String sql = "insert into member2 values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
-		String name = null;
 		int index=1;
 		int su =0;
 		try {
@@ -116,8 +118,6 @@ public class MemberDAO {
 			pstmt.setString(index++, memberDTO.getAddr2());
 			
 			su = pstmt.executeUpdate();
-			if(rs.next())
-				name = rs.getString(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -131,4 +131,43 @@ public class MemberDAO {
 		}
 		return su;
 	}
+	public List<PostDTO> getPost(String sido,String sigungu,String roadname){
+		System.out.println(sigungu);
+		List<PostDTO> list = new ArrayList<PostDTO>();
+		String sql = "select * from newzipcode where sido=? and nvl(sigungu,'0') like ? and roadname like ?";
+		this.getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sido);
+			pstmt.setString(2, "%"+sigungu+"%");
+			pstmt.setString(3, "%"+roadname+"%");
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				PostDTO postDTO = new PostDTO();
+				postDTO.setZipcode(rs.getString("zipcode"));
+				postDTO.setSido(rs.getString("sido"));
+				postDTO.setSigungu(rs.getString("sigungu")!=null?rs.getString("sigungu"):"");
+				postDTO.setYubmyundong(rs.getString("yubmyundong"));
+				postDTO.setRi(rs.getString("ri")!=null?rs.getString("ri"):"");
+				postDTO.setRoadname(rs.getString("roadname"));
+				postDTO.setBuildingname(rs.getString("buildingname")!=null?rs.getString("buildingname"):"");
+                
+				list.add(postDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return list;
+	}
+	
 }

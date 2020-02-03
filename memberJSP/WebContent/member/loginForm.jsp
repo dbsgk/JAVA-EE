@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <!-- memberServlet의 loginForm.html의 내용과 같다 -->
@@ -8,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <form name="loginForm" method="post" action="/memberJSP/member/login.jsp">
 <table border="1" cellspacing="0" cellpadding="5">
 	<tr>
