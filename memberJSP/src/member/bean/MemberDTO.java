@@ -1,7 +1,5 @@
 package member.bean;
 
-import java.util.Date;
-
 public class MemberDTO {
 	private String name;
 	private String id;
@@ -15,7 +13,7 @@ public class MemberDTO {
 	private String zipcode;
 	private String addr1;
 	private String addr2;
-	private Date logtime;
+	
 	public String getName() {
 		return name;
 	}
@@ -88,13 +86,4 @@ public class MemberDTO {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	public Date getLogtime() {
-		return logtime;
-	}
-	public void setLogtime(Date logtime) {
-		this.logtime = logtime;
-	}
-	
-	
 }
-	
