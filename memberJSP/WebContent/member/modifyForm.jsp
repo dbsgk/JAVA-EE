@@ -1,8 +1,15 @@
+<%@page import="member.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="memberDTO" class="member.bean.MemberDTO" scope="page"/>
+<jsp:useBean id="memberDAO" class="member.dao.MemberDAO" scope="page"/>
 <jsp:setProperty property="*" name="memberDTO"/>
+
 <%
+//데이터
+String id = (String)session.getAttribute("memId");
+
+//DB
+MemberDTO memberDTO = memberDAO.getMember(id);
 
 %>
 <!DOCTYPE html>
@@ -26,14 +33,14 @@
 <jsp:getProperty property="y" name="dataDTO"/>= 
 <%=dataDTO.getX()+dataDTO.getY() %><br> --%>
 		<input type="text" name="id" id="id" size="25" readonly value="<%=memberDTO.getId()%>">
-		<jsp:getProperty property="id" name="memberDTO"/>
-		<input type="button" value="중복체크" onclick="checkId()">
+		<%-- <jsp:getProperty property="id" name="memberDTO"/> --%>
+		
 		<input type="hidden" name="check" value="">
 	</td>
 </tr>
 <tr>
 	<td align="center">비밀번호</td>
-	<td><input type="password" name="pwd" id="pwd" size="30"></td>
+	<td><input type="password" name="pwd" id="pwd" size="30" placeholder=""></td>
 </tr>
 <tr>
 	<td align="center">재확인</td>
@@ -91,6 +98,13 @@
 </body>
 <script type="text/javascript" src="http://localhost:8080/memberJSP/js/member.js"></script>
 <script type="text/javascript">
+window.onload = function() {
+	document.modifyForm.gender['<%=memberDTO.getGender()%>'].checked = true;
+	document.modifyForm.email2.value = '<%=memberDTO.getEmail2()%>';
+	
+	 document.modifyForm.tel1.value = '<%=memberDTO.getTel1()%>';
+	 <%-- document.getElementById('tel1').value = '<%=memberDTO.getTel1()%>'; --%>
+}
 </script>
 </html>
 

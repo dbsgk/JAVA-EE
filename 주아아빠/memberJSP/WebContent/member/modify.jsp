@@ -3,6 +3,7 @@
 <%@page import="member.bean.AddrDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="member.dao.MemberDAO"%>
+<%request.setCharacterEncoding("UTF-8"); %>
     
 <jsp:useBean id="memberDTO" class="member.bean.MemberDTO" />
 <jsp:setProperty property="*" name="memberDTO" />
@@ -16,10 +17,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%if(result){ %>
-	회원정보를 성공적으로 수정했습니다.<br>
-<%} else{ %>
-	회원정보를 수정하는 데 실패했습니다.
-<%} %>
 </body>
+<script type="text/javascript">
+	window.onload = function(){
+		alert("회원정보를 수정했습니다.");
+		session.setAttribute("memName", name);
+		session.setAttribute("memId", id);
+		session.setAttribute("memEmail", memberDTO.getEmail1() + "@" + memberDTO.getEmail2());
+		location.href="../main/index.jsp";
+	}
+</script>
+
 </html>

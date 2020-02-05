@@ -5,7 +5,7 @@
 <jsp:useBean id="memberDTO" class="member.bean.MemberDTO"/>
 <%
 	MemberDAO memberDAO = MemberDAO.getInstance(); 
-	memberDTO = memberDAO.getMember(request.getParameter("id"));
+	memberDTO = memberDAO.getMember((String) session.getAttribute("memId"));
 %>
 <!DOCTYPE html>
 <html>
@@ -38,8 +38,11 @@
 	.tel{
 		width:70px;
 	}
+	#id, #name{
+		width:96%;
+	}
 	.addr{
-		width:100%;
+		width:96%;
 		margin-top:5px;
 	}
 	.btn{
@@ -50,7 +53,7 @@
 
 </head>
 <body>
-<h2>회원가입</h2>
+<h2>회원정보 수정</h2>
 
 <form name="modifyForm" method="post" action="modify.jsp">
 <table>
@@ -60,15 +63,18 @@
 	</tr>
 	<tr>
 		<td class="fieldName">아이디</td>
-		<td><input type="text" name="id" id="id" value="<%=memberDTO.getId() %>" class="t1" readonly></td>
+		<td><input type="text" name="id" id="id" value="<%=memberDTO.getId() %>" class="t1" readonly
+			 style="background-color:#eee;"></td>
 	</tr>
 	<tr>
 		<td class="fieldName">비밀번호</td>
-		<td><input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력" class="t1"></td>
+		<td><input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력" class="t1" onchange="passwordCheck()"></td>
 	</tr>
 	<tr>
 		<td class="fieldName">재확인</td>
-		<td><input type="password" name="pwdcheck" id="pwdcheck" placeholder="비밀번호 확인" class="t1"></td>
+		<td><input type="password" name="pwdcheck" id="pwdcheck" placeholder="비밀번호 확인" class="t1" onchange="passwordCheck()">
+			<span id="span_pwd"></span>
+		</td>
 	</tr>
 	<tr>
 		<td class="fieldName">성별</td>
@@ -79,7 +85,8 @@
 	<tr>
 		<td class="fieldName">이메일</td>
 		<td><input type="text" name="email1" style="width:100px;"
-				value="<%=memberDTO.getEmail1() %>">@<input type="text" name="email2" placeholder="직접 입력">
+				value="<%=memberDTO.getEmail1()!=null ? memberDTO.getEmail1() : "" %>">@
+			<input type="text" name="email2">
 		</td>
 	</tr>
 	<tr>
@@ -125,10 +132,17 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	window.onload = function(){
-		document.modifyForm.gender[<%=memberDTO.getGender() %>].checked = true;
-		document.modifyForm.email2.value = '<%=memberDTO.getEmail2() %>';
+		document.modifyForm.gender['<%=memberDTO.getGender() %>'].checked = true;
+		document.modifyForm.email2.value = '<%=memberDTO.getEmail2()!=null ? memberDTO.getEmail2() : "" %>';
 		document.modifyForm.tel1.value = '<%=memberDTO.getTel1()%>';
 	};
+	function passwordCheck(){
+		if(document.modifyForm.pwd.value == document.modifyForm.pwdcheck.value){
+			document.getElementById('span_pwd').innerHTML = "<font color = 'blue'>" + "일치함</font>";
+		}else{
+			document.getElementById('span_pwd').innerHTML = "<font color = 'red'>" + "불일치</font>";
+		}
+	}
 </script>
 
 </html>

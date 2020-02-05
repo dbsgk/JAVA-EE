@@ -1,130 +1,422 @@
-select * from tab;
-select * from employees;
-select * from all_users;
-create user java IDENTIFIED by bit;
-conn c##java/bit;
-show user;
+SELECT
+    *
+FROM
+    tab;
 
-select * from employees;
+SELECT
+    *
+FROM
+    employees;
 
-select * from tab; --테이블 목록 확인
-select * from user_sequences; --시퀀스 목록 확인
-desc employees;
-select employee_id, last_name, salary from employees;
-select employee_id as 사원번호, last_name as "이  름", salary as "급  여" from employees;
-select employee_id as 사원번호, last_name as "이  름", salary*12 as "연  봉" from employees;
-select employee_id as 사원번호, first_name||' '||last_name as "이  름", (salary*12)||'달러' as "연  봉" from employees;
-select * from employees;
-select last_name||' is a '||job_id as "Employee Detail" from employees;
-select distinct department_id from employees;
-select first_name||' '||last_name as 사원명, '$'||salary as "월 급", department_id as 부서코드 from employees where department_id=90 and (salary<=2500 or salary>=3000);
+SELECT
+    *
+FROM
+    all_users;
 
-select last_name as 이름,
-       job_id as 업무ID,
-       salary||'원' as "급 여"
-from employees 
-where (job_id='SA_REP' or job_id='AD_PRES') and salary>10000;
-select distinct job_id from employees;
-desc employees;
-select employee_id as 사원번호, first_name||' '||last_name as "이  름", hire_date as 입사일 from employees where hire_date like '05%';
-select employee_id, first_name, salary from employees where salary<=20000 and salary>=10000;
+CREATE USER java IDENTIFIED BY bit;
 
-create table guestbook(
-    seq number primary key,
-    name varchar2(30),
-    email varchar2(30),
-    homepage varchar2(35),
-    subject varchar2(500) not null,
-    content varchar2(4000) not null,
-    logtime date);
-select * from guestbook;
-create sequence seq_guestbook nocycle nocache;
-insert into guestbook values(seq_guestbook.nextval,'1','1','1','1','1',sysdate);
-commit;
+CONN c##java
+/
 
-select last_name as "이 름", salary*12 as "연 봉" from employees order by 2 desc;--day2 문제2
-select last_name, department_id, hire_date
-from employees
-order by 2 desc, 3 asc;
-select employee_id, last_name, department_id
-from employees
-where lower(last_name)='higgins';
+bit;
 
-select mod(10,3) from dual;
-select round(35765.357,2) from dual;
-select round(35765.357,0) from dual;
-select round(35765.357,-3) from dual;
+SHOW USER;
 
-select trunc(35765.357,2)from dual;
-select trunc(35765.357,0)from dual;
-select trunc(35765.357,-3)from dual;
+SELECT
+    *
+FROM
+    employees;
 
-select concat('Hello',' World') from dual;
+SELECT
+    *
+FROM
+    tab; --테이블 목록 확인
 
-select length('King') from employees;
-select instr('HelloWorld', 'o',-1) from dual; 
+SELECT
+    *
+FROM
+    user_sequences; --시퀀스 목록 확인
 
-select * from employees;
+DESC employees;
+
+SELECT
+    employee_id,
+    last_name,
+    salary
+FROM
+    employees;
+
+SELECT
+    employee_id   AS 사원번호,
+    last_name     AS "이  름",
+    salary        AS "급  여"
+FROM
+    employees;
+
+SELECT
+    employee_id   AS 사원번호,
+    last_name     AS "이  름",
+    salary * 12 AS "연  봉"
+FROM
+    employees;
+
+SELECT
+    employee_id AS 사원번호,
+    first_name
+    || ' '
+    || last_name AS "이  름",
+    ( salary * 12 )
+    || '달러' AS "연  봉"
+FROM
+    employees;
+
+SELECT
+    *
+FROM
+    employees;
+
+SELECT
+    last_name
+    || ' is a '
+    || job_id AS "Employee Detail"
+FROM
+    employees;
+
+SELECT DISTINCT
+    department_id
+FROM
+    employees;
+
+SELECT
+    first_name
+    || ' '
+    || last_name AS 사원명,
+    '$' || salary AS "월 급",
+    department_id AS 부서코드
+FROM
+    employees
+WHERE
+    department_id = 90
+    AND ( salary <= 2500
+          OR salary >= 3000 );
+
+SELECT
+    last_name   AS 이름,
+    job_id      AS 업무id,
+    salary || '원' AS "급 여"
+FROM
+    employees
+WHERE
+    ( job_id = 'SA_REP'
+      OR job_id = 'AD_PRES' )
+    AND salary > 10000;
+
+SELECT DISTINCT
+    job_id
+FROM
+    employees;
+
+DESC employees;
+
+SELECT
+    employee_id   AS 사원번호,
+    first_name
+    || ' '
+    || last_name AS "이  름",
+    hire_date     AS 입사일
+FROM
+    employees
+WHERE
+    hire_date LIKE '05%';
+
+SELECT
+    employee_id,
+    first_name,
+    salary
+FROM
+    employees
+WHERE
+    salary <= 20000
+    AND salary >= 10000;
+
+CREATE TABLE guestbook (
+    seq        NUMBER PRIMARY KEY,
+    name       VARCHAR2(30),
+    email      VARCHAR2(30),
+    homepage   VARCHAR2(35),
+    subject    VARCHAR2(500) NOT NULL,
+    content    VARCHAR2(4000) NOT NULL,
+    logtime    DATE
+);
+
+SELECT
+    *
+FROM
+    guestbook;
+
+CREATE SEQUENCE seq_guestbook NOCYCLE NOCACHE;
+
+INSERT INTO guestbook VALUES (
+    seq_guestbook.NEXTVAL,
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    sysdate
+);
+
+COMMIT;
+
+SELECT
+    last_name AS "이 름",
+    salary * 12 AS "연 봉"
+FROM
+    employees
+ORDER BY
+    2 DESC;--day2 문제2
+
+SELECT
+    last_name,
+    department_id,
+    hire_date
+FROM
+    employees
+ORDER BY
+    2 DESC,
+    3 ASC;
+
+SELECT
+    employee_id,
+    last_name,
+    department_id
+FROM
+    employees
+WHERE
+    lower(last_name) = 'higgins';
+
+SELECT
+    mod(10, 3)
+FROM
+    dual;
+
+SELECT
+    round(35765.357, 2)
+FROM
+    dual;
+
+SELECT
+    round(35765.357, 0)
+FROM
+    dual;
+
+SELECT
+    round(35765.357, - 3)
+FROM
+    dual;
+
+SELECT
+    trunc(35765.357, 2)
+FROM
+    dual;
+
+SELECT
+    trunc(35765.357, 0)
+FROM
+    dual;
+
+SELECT
+    trunc(35765.357, - 3)
+FROM
+    dual;
+
+SELECT
+    concat('Hello', ' World')
+FROM
+    dual;
+
+SELECT
+    length('King')
+FROM
+    employees;
+
+SELECT
+    instr('HelloWorld', 'o', - 1)
+FROM
+    dual;
+
+SELECT
+    *
+FROM
+    employees;
 --사원의 레코드를 검색하시오(concat, length)id name length
 --      조건1) 이름과 성을 연결하시오(concat) 
 --      조건2) 구해진 이름의 길이를 구하시오(length)
 --      조건3) 성이 n으로 끝나는 사원(substr)
-select employee_id, 
-        concat(first_name, ' '||last_name) as name ,
-        length(concat(first_name, ' '||last_name)) as lenght
-from employees where (substr(last_name, length(last_name)))='n';
+
+SELECT
+    employee_id,
+    concat(first_name, ' ' || last_name) AS name,
+    length(concat(first_name, ' ' || last_name)) AS lenght
+FROM
+    employees
+WHERE
+    ( substr(last_name, length(last_name)) ) = 'n';
 --substr(last_name, -1, 1) = 'n'; 끝에서 한개만 가져오겠다.
 
-select last_day(sysdate) from dual;
+SELECT
+    last_day(sysdate)
+FROM
+    dual;
 
-select
-to_char(last_day(sysdate), 'DD')-
-to_char(sysdate, 'DD')
-from dual; --날짜끼리의 연산은 -만 가능 ( +안됨 )
+SELECT
+    to_char(last_day(sysdate), 'DD') - to_char(sysdate, 'DD')
+FROM
+    dual; --날짜끼리의 연산은 -만 가능 ( +안됨 )
 
-select last_day(sysdate)-sysdate from dual;
-select sysdate+3 from dual;
+SELECT
+    last_day(sysdate) - sysdate
+FROM
+    dual;
 
-select * from
-(select rownum rn, tt.* from 
-(select * from guestbook order by seq desc)tt --지금 걸러온 항목을 나는 tt라 하겠습니다.
-)where rn>=1 and rn<=3;
+SELECT
+    sysdate + 3
+FROM
+    dual;
 
-select (select count(*) from guestbook);
+SELECT
+    *
+FROM
+    (
+        SELECT
+            ROWNUM rn,
+            tt.*
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    guestbook
+                ORDER BY
+                    seq DESC
+            ) tt --지금 걸러온 항목을 나는 tt라 하겠습니다.
+    )
+WHERE
+    rn >= 1
+    AND rn <= 3;
+
+SELECT
+    (
+        SELECT
+            COUNT(*)
+        FROM
+            guestbook
+    );
 
 select count(*) cn from guestbook
 
 select * from
 (select rownum rn, tt.* from
-(select seq, name, email, homepage, subject, content, to_char(logtime, 'YYYY.MM.DD')as logtime from guestbook orderby seq desc
-)where rn>=? and rn<=?;
+(select seq, name, email, homepage, subject, content, to_char(logtime, 'YYYY.MM.DD')as logtime from guestbook orderby seq DESC )
+WHERE
+    rn >= ?
+    AND rn <=
+    ?;
 
-select rownum,tt.* from (select * from guestbook order by seq desc)tt where rownum>=1 and rownum<=3;
+SELECT
+    ROWNUM,
+    tt.*
+FROM
+    (
+        SELECT
+            *
+        FROM
+            guestbook
+        ORDER BY
+            seq DESC
+    ) tt
+WHERE
+    ROWNUM >= 1
+    AND ROWNUM <= 3;
 
-select last_name, to_char(salary, 'L99,999.99')
-from employees
-where last_name='King';
+SELECT
+    last_name,
+    to_char(salary, 'L99,999.99')
+FROM
+    employees
+WHERE
+    last_name = 'King';
 
-select to_char(to_date('97-9-30', 'YY-MM-DD'), 'YYYY-MM-DD') from dual;
-select to_char(to_date('97-9-30', 'RR-MM-DD'), 'YYYY-MM-DD') from dual;
+SELECT
+    to_char(TO_DATE('97-9-30', 'YY-MM-DD'), 'YYYY-MM-DD')
+FROM
+    dual;
+
+SELECT
+    to_char(TO_DATE('97-9-30', 'RR-MM-DD'), 'YYYY-MM-DD')
+FROM
+    dual;
 --ex15) months_between(date1,date2) : 두 날짜 사이의 달 수
-select round(months_between('95-10-21', '94-10-20'), 0) from dual; -- ← 자동 형변환 앞달이 더 커야함.
-select rank(3000) within group(order by salary desc) "rank" from employees;
-select employee_id, salary, rank() over(order by salary desc)"rank" from employees;
+
+SELECT
+    round(months_between('95-10-21', '94-10-20'), 0)
+FROM
+    dual; -- ← 자동 형변환 앞달이 더 커야함.
+
+SELECT
+    RANK(3000) WITHIN GROUP(ORDER BY salary DESC) "rank"
+FROM
+    employees;
+
+SELECT
+    employee_id,
+    salary,
+    RANK() OVER(
+        ORDER BY
+            salary DESC
+    ) "rank"
+FROM
+    employees;
 
 --[문제4]2005년 이전에 고용된 사원을 찾으시오
-select last_name
-, to_char(to_date(hire_date, 'DD-MM-RR')
-, 'DD-MM"월"-YYYY')hire_date 
-from employees where hire_date<to_date('2005', 'YYYY'); --day2 문제4번
 
-select last_name
-, to_char(hire_date, 'dd-mon-yyyy')
-from employees where hire_date<'2005-01-01'; --day2 문제4번(쌤 답)
+SELECT
+    last_name,
+    to_char(to_date(hire_date, 'DD-MM-RR'), 'DD-MM"월"-YYYY') hire_date
+FROM
+    employees
+WHERE
+    hire_date < TO_DATE('2005', 'YYYY'); --day2 문제4번
+
+SELECT
+    last_name,
+    to_char(hire_date, 'dd-mon-yyyy')
+FROM
+    employees
+WHERE
+    hire_date < '2005-01-01'; --day2 문제4번(쌤 답)
 --[문제5]
-select * from employees where commission_pct is null;
-select COUNT(*) FROM employees where commission_pct is null;
-select count(nvl(commission_pct,0)) from employees where commission_pct is null; --쌤 답
+
+SELECT
+    *
+FROM
+    employees
+WHERE
+    commission_pct IS NULL;
+
+SELECT
+    COUNT(*)
+FROM
+    employees
+WHERE
+    commission_pct IS NULL;
+
+SELECT
+    COUNT(nvl(commission_pct, 0))
+FROM
+    employees
+WHERE
+    commission_pct IS NULL; --쌤 답
 
 --[문제6] 급여가 10000미만이면 초급, 20000미만이면 중급 그 외면 고급을 출력하시오
 -- (case 사용)
@@ -132,121 +424,377 @@ select count(nvl(commission_pct,0)) from employees where commission_pct is null;
 --      조건2) 제목은 사원번호, 사원명, 구  분으로 표시하시오
 --      조건3) 구분(오름차순)으로 정렬하고, 같으면 사원명(오름차순)으로 정렬하시오.
 
-select employee_id 사원번호,last_name 사원명, case 
-                    when salary<10000 then '초급' 
-                    when salary<20000 then '중급' 
-                    else '고급' 
-              end "구  분"
-from employees
-order by 3,2;
+SELECT
+    employee_id   사원번호,
+    last_name     사원명,
+    CASE
+        WHEN salary < 10000 THEN
+            '초급'
+        WHEN salary < 20000 THEN
+            '중급'
+        ELSE
+            '고급'
+    END "구  분"
+FROM
+    employees
+ORDER BY
+    3,
+    2;
 --[문제7] 사원테이블에서 사원번호, 이름, 급여, 커미션, 연봉을 출력하시오
 --        조건1) 연봉은 $ 표시와 세자리마다 콤마를 사용하시오
 --        조건2) 연봉 = 급여 * 12 + (급여 * 12 * 커미션)
 --        조건3) 커미션을 받지 않는 사원도 포함해서 출력하시오
 --
-select employee_id 사원번호
-    , last_name 이름, salary 급여
-    , nvl(commission_pct, 0) 커미션
-    , to_char(salary*12+(salary*12*nvl(commission_pct, 0)), '$9,999,999.99')연봉
-from employees
-order by 5 desc;
+
+SELECT
+    employee_id   사원번호,
+    last_name     이름,
+    salary        급여,
+    nvl(commission_pct, 0) 커미션,
+    to_char(salary * 12 +(salary * 12 * nvl(commission_pct, 0)), '$9,999,999.99') 연봉
+FROM
+    employees
+ORDER BY
+    5 DESC;
 --[문제8] 매니저가 없는 사원의 매니저id를, 1000번으로 표시
 --        조건1) 제목은 사원번호, 이름, 매니저ID
 --        조건2) 모든 사원을 표시하시오
-select employee_id 사원번호
-    , last_name 이름
-    ,nvl(manager_id, 1000)매니저ID 
-from employees;
+
+SELECT
+    employee_id   사원번호,
+    last_name     이름,
+    nvl(manager_id, 1000) 매니저id
+FROM
+    employees;
 
 --day3_ex1
-select to_char(trunc(avg(salary),0), '99,999') as 사원급여평균 from employees;
-desc employees;
 
-select department_id as 부서코드, 
-       to_char(round(avg(salary),0),'L99,999,999') as 평균급여
-from employees
-group by department_id  --group by 묶은 해당 컬럼(부서번호)만 조회가능.
-having avg(salary)>=5000
-order by department_id asc; 
+SELECT
+    to_char(trunc(AVG(salary), 0), '99,999') AS 사원급여평균
+FROM
+    employees;
 
-select department_id, avg(salary) 
-from employees
-group by department_id;
+DESC employees;
 
-select job_id, sum(salary) 급여합계
-from employees
-group by job_id
-order by 급여합계 desc;--day3 문제1
+SELECT
+    department_id AS 부서코드,
+    to_char(round(AVG(salary), 0), 'L99,999,999') AS 평균급여
+FROM
+    employees
+GROUP BY
+    department_id  --group by 묶은 해당 컬럼(부서번호)만 조회가능.
+HAVING
+    AVG(salary) >= 5000
+ORDER BY
+    department_id ASC;
 
-select department_id, max(salary) as max_salary
-from employees
-group by department_id
-having department_id in(10,20)
-order by department_id;
+SELECT
+    department_id,
+    AVG(salary)
+FROM
+    employees
+GROUP BY
+    department_id;
 
-select department_id, max(salary) as max_salary
-from employees
-where department_id in(10,20)
-group by department_id
-order by department_id;
+SELECT
+    job_id,
+    SUM(salary) 급여합계
+FROM
+    employees
+GROUP BY
+    job_id
+ORDER BY
+    급여합계 DESC;--day3 문제1
+
+SELECT
+    department_id,
+    MAX(salary) AS max_salary
+FROM
+    employees
+GROUP BY
+    department_id
+HAVING
+    department_id IN (
+        10,
+        20
+    )
+ORDER BY
+    department_id;
+
+SELECT
+    department_id,
+    MAX(salary) AS max_salary
+FROM
+    employees
+WHERE
+    department_id IN (
+        10,
+        20
+    )
+GROUP BY
+    department_id
+ORDER BY
+    department_id;
 
 --ex05
-select employee_id, employees.department_id, department_name
-from employees, departments
-where employees.department_id = departments.department_id;
 
-select e.employee_id, e.department_id, d.department_name
-from employees e, departments d
-where e.department_id= d.department_id;
+SELECT
+    employee_id,
+    employees.department_id,
+    department_name
+FROM
+    employees,
+    departments
+WHERE
+    employees.department_id = departments.department_id;
 
-select employee_id,department_id, department_name
-from employees
-join departments 
-   USING (department_id);--inner join인가?
+SELECT
+    e.employee_id,
+    e.department_id,
+    d.department_name
+FROM
+    employees     e,
+    departments   d
+WHERE
+    e.department_id = d.department_id;
+
+SELECT
+    employee_id,
+    department_id,
+    department_name
+FROM
+    employees
+    JOIN departments USING ( department_id );--inner join인가?
 --문제2
-select * from locations;
-select * from departments;
-select department_id, city
-from departments d
-join locations l using(location_id)
-order by department_id;
 
-select last_name, department_id,department_name
-from employees
-left join departments using(department_id)order by department_id;
+SELECT
+    *
+FROM
+    locations;
+
+SELECT
+    *
+FROM
+    departments;
+
+SELECT
+    department_id,
+    city
+FROM
+    departments   d
+    JOIN locations     l USING ( location_id )
+ORDER BY
+    department_id;
+
+SELECT
+    last_name,
+    department_id,
+    department_name
+FROM
+    employees
+    LEFT JOIN departments USING ( department_id )
+ORDER BY
+    department_id;
 
 --ex7
-select last_name, department_id, department_name
-from employees
-right join departments using(department_id)order by department_id;
+
+SELECT
+    last_name,
+    department_id,
+    department_name
+FROM
+    employees right
+    JOIN departments USING ( department_id )
+ORDER BY
+    department_id;
 
 --inner join : 두 개의 컬럼이 일치 하는 경우
 --     부서ID와 매니저ID가 같은 사원을 연결 하시오
 --     (관련 테이블 : departments, employees)  : 32 레코드
 --        last_name     department_id   manager_id
-select e.last_name, d.department_id, d.manager_id
-from employees e, departments d
-where e.department_id=d.department_id and e.manager_id=d.manager_id; 
 
-select last_name, department_id, manager_id
+SELECT
+    e.last_name,
+    d.department_id,
+    d.manager_id
+FROM
+    employees     e,
+    departments   d
+WHERE
+    e.department_id = d.department_id
+    AND e.manager_id = d.manager_id;
+
+SELECT
+    last_name,
+    department_id,
+    manager_id
+FROM
+    employees
+    INNER JOIN departments USING ( department_id,
+                                   manager_id );
+
+SELECT
+    last_name,
+    department_id,
+    department_name
+FROM
+    employees full
+    JOIN departments USING ( department_id )
+ORDER BY
+    department_id;
+
+SELECT
+    *
+FROM
+    location2;
+
+CREATE TABLE location2
+    AS
+        SELECT
+            *
+        FROM
+            locations;
+
+ALTER TABLE location2 RENAME COLUMN location_id TO loc_id;
+
+SELECT
+    department_id,
+    city
+FROM
+    departments
+    JOIN location2 ON ( location_id = loc_id );
+
+SELECT
+    e.employee_id   AS 사원번호,
+    e.last_name     AS 사원이름,
+    m.last_name     AS 관리자
+FROM
+    employees   e,
+    employees   m
+WHERE
+    m.employee_id = e.manager_id
+ORDER BY
+    m.employee_id; 
+
+--ex11) self 조인 : 자기자신의 테이블과 조인하는 경우 사원과 관리자를 연결하시오
+--
+--사원번호   사원이름      관리자
+------------------------------------
+--   101      Kochhar      King  
+
+SELECT
+    e.employee_id   사원번호,
+    e.last_name     사원이름,
+    m.last_name     관리자
+FROM
+    employees   e,
+    employees   m
+WHERE
+    e.manager_id = m.employee_id
+ORDER BY
+    e.employee_id;
+
+SELECT
+    e.employee_id   AS 사원번호,
+    e.last_name     AS 사원이름,
+    m.last_name     AS 관리자
+FROM
+    employees   e
+    JOIN employees   m ON ( m.employee_id = e.manager_id );  
+    
+
+--[문제3] 위치ID, 부서ID을 연결해서 사원이름, 도시, 부서이름을 출력하시오
+--        (관련 테이블 : EMPLOYEES, LOCATIONS2, DEPARTMENTS)
+--조건1 : 사원이름, 도시, 부서이름으로 제목을 표시하시오	
+--조건2 : Seattle 또는 Oxford 에서 근무하는 사원
+--조건3 : 도시 순으로 오름차순 정렬하시오 
+--
+--사원이름      도    시     부서이름
+-----------------------------------------------
+--Hall            Oxford       Sales
+
+DESC departments;
+
+SELECT
+    e.last_name         사원이름,
+    l.city              도시,
+    d.department_name   부서이름
+FROM
+    employees     e
+    JOIN departments   d USING ( department_id )
+    JOIN location2     l ON ( loc_id = location_id )
+WHERE
+    city IN (
+        'Seattle',
+        'Oxford'
+    )
+ORDER BY
+    l.city;
+
+--[문제4] 부서ID, 위치ID, 국가ID를 연결해서 다음과 같이 완성하시오
+--(관련 테이블 : EMPLOYEES, LOCATIONS2, DEPARTMENTS, COUNTRIES)
+--
+--조건1 : 사원번호, 사원이름, 부서이름, 도시(city), 도시주소(country_id), 나라이름(country_name)으로 제목을 표시하시오
+--조건2 : 도시주소에 Ch 또는 Sh 또는 Rd가 포함되어 있는 데이터만 표시하시오
+--조건3 : 나라이름, 도시별로 오름차순 정렬하시오
+--조건4 : 모든 사원을 포함한다
+
+SELECT
+    e.employee_id       사원번호,
+    e.last_name         사원이름,
+    d.department_name   부서이름,
+    l.city              도시,
+    l.street_address    도로주소,
+    c.country_name      나라이름
+FROM
+    employees     e
+    left JOIN departments   d USING ( department_id )
+    JOIN location2     l ON ( loc_id = location_id )
+    JOIN countries     c USING ( country_id )
+WHERE
+    l.street_address LIKE '%Ch%'
+    OR l.street_address LIKE '%Sh%'
+    OR l.street_address LIKE '%Rd%'
+ORDER BY
+    c.country_name,
+    l.city; --23
+create TABLE sellings (car_id NUMBER, employee_id NUMBER, created_at date, price number);
+select * from sellings;
+insert into sellings values(352, 2455, '2016/08/16', 3700);
+insert into sellings values(352, 2499, '2016/11/26', 6200);
+insert into sellings values(352, 3010, '2016/11/06', 10800);
+insert into sellings values(306, 2955, '2016/12/25', 1000);
+select sum(price)
+from sellings
+where created_at like '%16/11%';
+
+create table employees_role as select * from employees where 1=0;
+select * from employees_role;
+commit;
+ ← 테이블 구조만 복사(레코드는 안가져옴.)
+--ex1) union 
+--employee_id, last_name이 같을 경우 중복제거 하시오  → 110 레코드
+select employee_id, last_name from employees_role
+union all
+select employee_id, last_name from employees;
+
+select salary  from employees where department_id=10
+union all
+select salary  from employees where department_id=30 order by 1;
+
+--[문제1] employees와 employees_role에서 레코드의 사원명단을 구하시오
+--조건1) 사원이름, 업무ID, 부서ID을 표시하시오
+--조건2) employees 에서는 부서ID가 10인사원만 
+--       employees_role에서는 업무ID가 IT_PROG만 검색
+--조건3) 중복되는 레코드는 제거
+select last_name 사원이름,
+     job_id 업무이름,
+     department_id 부서ID,
 from employees
-inner join departments using(department_id, manager_id);
-
-
-
-select last_name, department_id, department_name
-from employees
-full join departments using(department_id)order by department_id;
-
-
-
-
-
-select * from location2;
-create table location2 as select * from locations;
-alter table location2 rename column location_id to loc_id;
-
-select department_id, city
-from departments
-join location2 on(location_id=loc_id);
-
+where department_id=10
+union
+select last_name 사원이름,
+     job_id 업무이름,
+     department_id 부서ID,
+from employees_role
+where job_id='IT_PROG';

@@ -25,7 +25,7 @@ function checkModifyForm(){
 	else if(document.modifyForm.pwd.value != document.modifyForm.repwd.value)
 		alert("비밀번호가 맞지 않습니다");
 	else
-		document.writeForm.submit();
+		document.modifyForm.submit();
 }
 function checkId(){
 	let sId = document.writeForm.id.value;
@@ -63,15 +63,6 @@ function checkPost(){
 function test(){
 	alert("윈도우 온로드 테스트");
 }
-
-
-
-
-
-
-
-
-
 
 
 

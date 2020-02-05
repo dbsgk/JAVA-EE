@@ -93,7 +93,19 @@ if(sido!=null && roadname!=null){
 <%}//if %>
 </table>
 </form>
-<script type="text/javascript" src="../js/member.js"></script>
+<!-- <script type="text/javascript" src="../js/member.js"></script> -->
+<script type="text/javascript" >
+function checkPostClose(zipcode, address){
+/* opener.document.forms[0].zipcode.value = zipcode;
+opener.document.forms[0].addr1.value = addr1;
+opener.document.forms[0].addr2.focus(); */
+
+opener.document.getElementById('zipcode').value = zipcode;
+opener.document.getElementById('addr1').value = address;
+window.close();
+opener.document.getElementById('addr2').focus();
+}
+</script>
 </body>
 </html>
 

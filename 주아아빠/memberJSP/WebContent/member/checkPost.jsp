@@ -76,16 +76,16 @@ List<AddrDTO> addrList = memberDAO.getAddr(sido, sigungu, roadname);
 							<%} else {%>
 								fieldName
 							<%} %>">
-				<a href="#" onclick="selectAddr('<%=zipcode%>', '<%=new_addr %>')"><%=zipcode %></a>
+				<a onclick="selectAddr('<%=zipcode%>', '<%=new_addr %>')" style="cursor:pointer;"><%=zipcode %></a>
 			</td>
 			<td colspan="3" <%if(j%2==1){ %>class="shadow"<%} %>>
 				<div class="newAddr">
-				<a href="#" onclick="selectAddr('<%=zipcode%>', '<%=new_addr %>')">
+				<a onclick="selectAddr('<%=zipcode%>', '<%=new_addr %>')" style="cursor:pointer;">
 					<%=new_addr %> 
 				</a>
 				</div>
 				<div class="oldAddr">
-				<a href="#" onclick="selectAddr('<%=zipcode%>', '<%=old_addr %>')">
+				<a onclick="selectAddr('<%=zipcode%>', '<%=old_addr %>')" style="cursor:pointer;">
 					(구)<%=old_addr %>
 				</a>
 				</div>
