@@ -4,8 +4,8 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="boardDAO" class="board.dao.BoardDAO" />  
 <%
-List<BoardDTO> list = boardDAO.getList();
-	
+/* List<BoardDTO> list = boardDAO.getList();
+ */	
 
 %>
 <!DOCTYPE html>
@@ -17,4 +17,10 @@ List<BoardDTO> list = boardDAO.getList();
 <body>
 
 </body>
+<script type="text/javascript">
+window.onload = function() {
+	alert("글작성 완료");
+	location.href='boardList.jsp';
+}
+</script>
 </html>

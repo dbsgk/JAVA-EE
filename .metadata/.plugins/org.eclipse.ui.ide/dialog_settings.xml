@@ -7,6 +7,8 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\bitcamp\Desktop\memberJSP"/>
+			<item value="D:\java_ee\workspace\주아아빠\memberJSP"/>
 			<item value="D:\java_ee\workspace\memberJSP"/>
 			<item value="D:\java_ee\workspace\memberServlet"/>
 			<item value="D:\java_ee\workspace\guestbookServlet"/>

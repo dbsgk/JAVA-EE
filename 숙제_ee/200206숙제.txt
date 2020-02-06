@@ -1,0 +1,7 @@
+1.파란색 div
+2. 제목에 링크를 거세요(boardList.jsp)
+	- 마우스가 올라가면 밑줄, 나머지는 전부 검정색
+	- 링크를 클릭할 때 로그인 안되어 있으면 alert("먼저 로그인하세요"); boardList그대로.
+	   javascript의 isLogin() 함수에서 처리하세요.
+	- 링크를 클릭할 때 로그인이 되어있으면 boardView.jsp
+	   (boardWrite랑 틀이 같은데 안에 내용이 있음)

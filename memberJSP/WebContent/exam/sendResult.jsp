@@ -3,4 +3,5 @@
 <%
 String apple = (String)request.getAttribute("apple");
 %>
-결과: <%=apple%>
+
+결과 = <%=apple%>

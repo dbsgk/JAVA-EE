@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<jsp:useBean id="dataDTO" class="exam.bean.DataDTO" scope="session" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%int x= Integer.parseInt(request.getParameter("x")); %>
-<%int y= Integer.parseInt(request.getParameter("y")); %>
-<%=x %> * <%=y %> = <%=x*y %><br>
+<jsp:getProperty property="x" name="dataDTO"/> * 
+<jsp:getProperty property="y" name="dataDTO"/> = 
+<%=dataDTO.getX()*dataDTO.getY() %>
 </body>
 </html>

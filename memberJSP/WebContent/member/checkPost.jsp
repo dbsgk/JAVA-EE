@@ -28,7 +28,7 @@ if(sido!=null && roadname!=null){
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/member.css"> 
+<link rel="stylesheet" href="../css/member.css">
 </head>
 <body>
 <form method="post" action="checkPost.jsp">
@@ -65,7 +65,7 @@ if(sido!=null && roadname!=null){
 <tr>
 	<td align="center">도로명</td>
 	<td  colspan="3">
-		<input type="text" name="roadname" style="width: 200px" >
+		<input type="text" name="roadname" style="width: 200px">
 		<input type="submit" value="검색" >
 	</td>
 </tr>
@@ -76,7 +76,6 @@ if(sido!=null && roadname!=null){
 
 <%if(list!=null){ %>
 	<%for(ZipcodeDTO zipcodeDTO : list){ 
-		String zipcode =zipcodeDTO.getZipcode();
 		String address = zipcodeDTO.getSido()+" "
 				+zipcodeDTO.getSigungu()+" "
 				+zipcodeDTO.getYubmyundong()+" "
@@ -85,28 +84,27 @@ if(sido!=null && roadname!=null){
 				+zipcodeDTO.getBuildingname();
 	%>
 		<tr>
-			<td align="center"><%=zipcode%></td>
-			<td colspan="3"> 
-			<a class="addressA" href="#" onclick="checkPostClose('<%=zipcode%>','<%=address%>')"><%=address%></a></td><!-- href="#" 주소필요없다.  -->
+			<td align="center"><%=zipcodeDTO.getZipcode()%></td>
+			<td colspan="3"><a class="addressA" href="#" onclick="checkPostClose('<%=zipcodeDTO.getZipcode()%>','<%=address%>')"><%=address%></a></td>
 		</tr>
 	<%}//for %>
 <%}//if %>
 </table>
 </form>
-<!-- <script type="text/javascript" src="../js/member.js"></script> -->
-<script type="text/javascript" >
+</body>
+<script>
 function checkPostClose(zipcode, address){
-/* opener.document.forms[0].zipcode.value = zipcode;
-opener.document.forms[0].addr1.value = addr1;
-opener.document.forms[0].addr2.focus(); */
-
-opener.document.getElementById('zipcode').value = zipcode;
-opener.document.getElementById('addr1').value = address;
-window.close();
-opener.document.getElementById('addr2').focus();
+	/* opener.document.forms[0].zipcode.value = zipcode;
+	opener.document.forms[0].addr1.value = address;
+	window.close();
+	opener.document.forms[0].addr2.focus(); */
+	
+	opener.document.getElementById('zipcode').value = zipcode;
+	opener.document.getElementById('addr1').value = address;
+	window.close();
+	opener.document.getElementById('addr2').focus();
 }
 </script>
-</body>
 </html>
 
 

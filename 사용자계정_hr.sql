@@ -798,3 +798,36 @@ select last_name 사원이름,
      department_id 부서ID,
 from employees_role
 where job_id='IT_PROG';
+
+select department_name from departments
+where department_id = (select department_id 
+from employees 
+where first_name='Neena');
+desc employees;
+select * from employees;
+--ex2) Neena사원의 부서에서 Neena사원보다 급여를 많이 받는 사원들을 구하시오 
+--                  (90)          (17000)
+--last_name    department_id    salary
+-----------------------------------------
+select last_name, department_id, salary
+from employees
+where department_id = (select department_id from employees 
+                        where first_name='Neena')
+and salary > (select salary from employees where first_name='Neena');
+
+--[문제1] 최저급여를 받는 사원들의 이름(first_name)과 급여(salary)를 구하시오
+select first_name 이름,
+    salary 급여
+from employees
+where salary = (select min(salary) from employees) ;
+
+--[문제2] 부서별 급여 합계 중 최대급여를 받는 부서의 부서명과 급여합계를 구하시오(group by)
+--
+--DEPARTMENT_NAME    SUM(SALARY)
+------------------------   ----------------
+--Sales                     304500
+
+
+
+
+

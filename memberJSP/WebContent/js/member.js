@@ -15,18 +15,6 @@ function checkWriteForm(){
 		document.writeForm.submit();
 }
 
-function checkModifyForm(){
-	//유효성 체크
-	if(document.modifyForm.name.value=="")
-		alert("이름을 입력하세요");
-	else if(document.modifyForm.pwd.value=="")
-	//else if(document.getElementById("pwd").value=="")	
-		alert("비밀번호를 입력하세요");
-	else if(document.modifyForm.pwd.value != document.modifyForm.repwd.value)
-		alert("비밀번호가 맞지 않습니다");
-	else
-		document.modifyForm.submit();
-}
 function checkId(){
 	let sId = document.writeForm.id.value;
 	if(sId=="") 
@@ -41,12 +29,6 @@ function checkIdClose(id){
 	window.close();
 	opener.writeForm.pwd.focus();	
 }
-function checkPostClose(zipcode,address){
-	opener.writeForm.zipcode.value = zipcode;
-	opener.writeForm.addr1.value = address;
-	window.close();
-	opener.writeForm.addr2.focus();	
-}
 
 function checkLoginForm(){
 	if(document.loginForm.id.value=="")
@@ -60,9 +42,26 @@ function checkLoginForm(){
 function checkPost(){
 	window.open("checkPost.jsp","","width=400 height=400 scrollbars=yes");
 }
-function test(){
-	alert("윈도우 온로드 테스트");
+
+function checkModifyForm(){
+	//유효성 체크
+	if(document.modifyForm.name.value=="")
+		alert("이름을 입력하세요");
+	else if(document.getElementById("pwd").value=="")	
+		alert("비밀번호를 입력하세요");
+	else if(document.modifyForm.pwd.value != document.modifyForm.repwd.value)
+		alert("비밀번호가 맞지 않습니다");
+	else
+		document.modifyForm.submit();
 }
+
+
+
+
+
+
+
+
 
 
 

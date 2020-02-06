@@ -151,6 +151,7 @@ public class GuestbookDAO {
 		
 		return totalA;
 	}
+	
 }
 
 

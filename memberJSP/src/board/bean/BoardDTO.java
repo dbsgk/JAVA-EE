@@ -1,7 +1,5 @@
 package board.bean;
 
-import java.util.Date;
-
 public class BoardDTO {
 	private int seq;
 	private String id;
@@ -15,7 +13,7 @@ public class BoardDTO {
 	private int pseq;
 	private int reply;
 	private int hit;
-	private Date logtime;
+	private String logtime;
 	
 	public int getSeq() {
 		return seq;
@@ -89,10 +87,10 @@ public class BoardDTO {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public Date getLogtime() {
+	public String getLogtime() {
 		return logtime;
 	}
-	public void setLogtime(Date logtime) {
+	public void setLogtime(String logtime) {
 		this.logtime = logtime;
 	}
 
