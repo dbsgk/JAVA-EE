@@ -202,4 +202,4 @@ CREATE TABLE board(
  
  CREATE SEQUENCE seq_board  NOCACHE NOCYCLE;
  
-
+select * from board;
