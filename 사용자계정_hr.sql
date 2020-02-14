@@ -953,10 +953,334 @@ where (job_id, salary) in
 from employees
 group by job_id);
 
+------2020-02-07---------------------------------------------------------------
+create table abc(name varchar2(10));
+drop table abc;
+select * from tab;
+
+flashback table a to before drop;
+purge recyclebin;
+
+select * from recyclebin; -- 휴지통에 있는 테이블 이름 알 수 있어요 . 오리지날 네임? 뭐 
+
+create table test( id number(5), name char(10), address varchar2(50));
+
+create table user1(
+idx number primary key, 
+id varchar2(10) unique,
+name varchar2(10) not null,
+phone varchar2(15),
+address varchar2(50),
+score number(6,2) check(score >=0 and score <= 100),--백의자리 . 소수2자리 (6byte)
+subject_code number(5),
+hire_date date default sysdate,
+marriage char(1) default 'N' check(marriage in('Y','N')));
+
+select constraint_name, constraint_type
+from user_constraints
+where table_name='user1';
+
+create table user2(
+idx number constraint PKIDX primary key, 
+id varchar2(10) constraint UNID unique,
+name varchar2(10)  constraint NOTNAME not null,
+phone   varchar2(15),
+address varchar2(50),
+score   number(6,2)   constraint CKSCORE check(score >=0 and score <= 100),
+subject_code  number(5),
+hire_date  date default sysdate,
+marriage   char(1)  default 'N' constraint CKMARR check(marriage in('Y','N')));
+
+select constraint_name, constraint_type
+from user_constraints
+where table_name='USER2';
+
+insert into user1(idx,id,name,phone,address,score,subject_code,hire_date,marriage)
+values(1,'aaa','kim','010-000-0000','서울',75,100,'2010-08-01','Y');
+
+insert into user1(idx,id,name,phone,address,score,subject_code,hire_date,marriage)
+values(2,'bbb','lee','010-000-0000','서울',75,100,'2010-08-01','N');
+
+select * from tab;
 
 
+select constraint_name, constraint_type
+from user_constraints
+where table_name='USER1';
+
+select constraint_name, constraint_type
+from user_constraints
+where table_name='USER2';
+
+alter table test rename to user3;
+
+alter table user3 add phone varchar2(15);
+desc user3;
+
+alter table user3 add constraint UID2 unique(id);
+
+select constraint_name, constraint_type
+from user_constraints
+where table_name='USER3';
+
+alter table user3 add no number primary key;--no라는 컬럼추가
+alter table user3 modify name varchar2(10);--char(10)에서 varchar(10)으로 바꿈
+alter table user3 modify name varchar2(10);
+desc user3;
+insert INTO user3(name, no) VALUES ('28',1);
+
+alter table user3 drop column address;
+
+drop table user3;
+flashback table user3 to before drop;
+
+create sequence idx_sql increment by 2 start with 1 maxvalue 9 cycle nocache;
+
+select idx_sql.nextval from dual;
+select idx_sql.currval from dual;
+
+create table book(
+no number primary key,
+subject varchar2(50),
+price number,
+year date);
+
+create sequence no_seq increment by 1 start with 1 nocycle nocache;
+
+alter table user2 drop constraint unid cascade;
 
 
+--7일차 ex1)
+create or replace view v_view1
+as select employee_id, last_name, salary, department_id from employees
+where department_id=90;
+
+select *from v_view1;
+delete from v_view1;
 
 
+--[문제1] 사원테이블에서 급여가 5000 이상 10000 이하인 사원들만 
+--v_view2으로 뷰를 만드시오 (사원ID, 사원이름, 급여, 부서ID)
+create or replace view v_view2
+as select employee_id 사원ID, last_name 사원이름, salary 급여, department_id 부서ID
+from employees
+where salary<=10000 and salary>=5000;
 
+select * from v_view2;
+--ex2) v_view2 테이블에서 103사원의 급여를 9000.00에서 12000.00으로 수정하시오
+update v_view2 set 급여=12000 where 사원ID=103;
+
+--[문제2] 사원테이블과 부서테이블에서 사원번호, 사원명, 부서명을 
+--v_view3로 뷰 테이블을 만드시오
+--조건1) 부서가 10, 90인 사원만 표시하시오
+--조건2) 타이틀은 사원번호, 사원명, 부서명으로 출력하시오
+--조건3) 사원번호로 오름차순 정렬하시오
+create or replace view v_view3
+as select employee_id 사원번호, last_name 사원명, department_name 부서명
+from employees
+join departments using(department_id)
+where department_id in (10, 90)
+order by 1;
+select * from tab;--테이블정보
+select * from user_sequences;--시퀀스 개수
+select * from user_views;--view 보여줌.
+select * from v_view3;
+select * from employees;
+select * from departments;
+select * from locations;
+--[문제3] 부서ID가 10,90번 부서인 모든 사원들의 부서위치를 표시하시오
+--조건1) v_view4로 뷰 테이블을 만드시오
+-- 조건2) 타이틀을 사원번호, 사원명, 급여, 입사일, 부서명, 부서위치(city)로 표시하시오
+-- 조건3) 사원번호 순으로 오름차순 정렬하시오
+-- 조건4) 급여는 백단위 절삭하고, 세자리 마다 콤마와 '원'을 표시하시오
+-- 조건5) 입사일은  '2004년 10월 02일' 형식으로 표시하시오
+create or replace view v_view4
+as select employee_id 사원번호, last_name 사원명, to_char(trunc(salary,-3), '999,999,999')||'원' 급여, to_char(hire_date, 'YYYY"년 "MM"월 "DD"일"') 입사일,
+department_name 부서명, city 부서위치
+from employees
+join departments using(department_id)
+join locations using(location_id)
+where department_id in (10, 90)
+order by 1;
+
+select * from v_view4;
+
+--ex3) 뷰에 제약조건달기
+--사원테이블에서 업무ID  'IT_PROG'인 사원들의 사원번호, 이름, 업무ID만 v_view5 뷰 테이블을 작성하시오, 
+--단 수정 불가의 제약조건을 추가 하시오
+create or replace view v_view5
+as select employee_id 사원번호, last_name 이름, job_id 업무ID
+from employees
+where job_id='IT_PROG'
+with read only;
+select * from employees;
+--ex4) 뷰에 제약조건 달기
+--사원테이블에서 업무ID 'IT_PROG'인 사원들의 사원번호, 이름, 이메일, 입사일, 업무ID만 v_view6 뷰 테이블을 작성하시오, 
+--단 업무ID가 'IT_PROG'인 사원들만 추가, 수정할 수 있는 제약조건을 추가하시오
+create or replace view v_view6
+as select employee_id 사원번호, last_name 이름, email 이메일, hire_date 입사일, job_id 업무ID
+from employees
+where job_id='IT_PROG'
+with check option;
+--[문제4]
+--테이블명 : bookshop
+--isbn      varchar2(10)  기본키(제약조건명:PISBN)
+--title       varchar2(50)  널값 허용X (제약조건명:CTIT) --책제목
+--author    varchar2(50)  -- 저자 
+--price      number       -- 금액
+--company  varchar2(30)  -- 출판사
+--
+--데이터
+--is001   자바3일완성           김자바  25000   야메루출판사
+--pa002  JSP달인되기           이달인  28000   공갈닷컴
+--or003  오라클무작정따라하기   박따라  23500   야메루출판사
+
+CREATE TABLE bookshop( 
+    isbn varchar2(10) constraint pisbn primary key,
+    title varchar2(50) constraint ctit not null,
+    author varchar2(50),
+    price number,
+    company varchar2(30));
+select * from bookshop;
+INSERT INTO bookshop VALUES ('is001', '자바3일완성', '김자바',25000,'야메루출판사');
+INSERT INTO bookshop VALUES ('pa002', 'JSP달인되기', '이달인',28000,'공갈닷컴');
+INSERT INTO bookshop VALUES ('or003', '오라클무작정따라하기', '박따라',23500,'야메루출판사');
+
+--테이블명 : bookorder
+--idx   number        primary key    --일련번호         
+--isbn  varchar2(10)   FKISBN    --bookshop의 isbn의 자식키
+--qty   number        --수량
+CREATE TABLE bookorder (
+    idx number primary key,
+    isbn varchar2(10),
+    qty number),
+    constraint fkisbn foreign key(isbn) REFERENCES bookshop;
+CREATE TABLE bookorder (
+    idx number primary key,
+    isbn varchar2(10) constraint fkisbn REFERENCES bookshop(isbn),
+    qty number);
+select * from bookorder;
+--시퀀스명 : idx_seq  증가값: 1  시작값 1  NOCACHE  NOCYCLE
+create SEQUENCE idx_seq
+  INCREMENT BY 1 start with 1 NOCYCLE nocache;
+--데이터
+--1          is001     2
+--2          or003     3
+--3          pa002    5
+--4          is001     3
+--5          or003    10
+insert INTO bookorder VALUES (idx_seq.nextval, 'is001',2);
+insert INTO bookorder VALUES (idx_seq.nextval, 'or003',3);
+insert INTO bookorder VALUES (idx_seq.nextval, 'pa002',5);
+insert INTO bookorder VALUES (idx_seq.nextval, 'is001',3);
+insert INTO bookorder VALUES (idx_seq.nextval, 'or003',10);
+
+--뷰 명 : bs_view
+--책제목        저자      총판매금액
+-------------------------------------------
+--조건1) 총판매금액은 qty * price로 하시오
+--조건2) 수정불가의 제약조건을 추가하시오
+
+create or replace view bs_view(책제목,저자, 총판매금액)
+as select title,
+        author,
+        sum(price*qty)
+from bookshop
+join bookorder using(isbn)
+group by (title, author)
+with read only;
+select * from bs_view;
+--ex5) 뷰 - 인라인(서브쿼리가 from절에 들어가있으면 그게 인라인)
+--사원테이블을 가지고 부서별 평균급여를 뷰(v_view7)로 작성하시오
+--조건1) 반올림해서 100단위까지 구하시오
+--조건2) 타이틀은  부서ID, 부서평균
+--조건3) 부서별로 오름차순 정렬 하시오
+--조건4) 부서ID가 없는 경우 5000으로 표시하시오
+select * from departments;
+select nvl(department_id,5000), round(avg(salary),-3)
+from employees
+join departments using (department_id)
+group by department_id
+order by 1;
+
+create or replace view v_view7(부서ID, 부서평균)
+as select nvl(department_id,5000), round(avg(salary),-3)
+from employees
+join departments using (department_id)
+group by department_id
+order by 1;
+select * from v_view7;
+
+--[문제5] 1. 부서별 최대급여를 받는 사원의 부서명, 최대급여를 출력하시오
+--       2. 1번 문제에 최대급여를 받는 사원의 이름도 구하시오
+select 부서명, 최대급여
+from(select department_name 부서명, 최대급여, department_id 부서ID
+from(select department_id, max(salary) 최대급여
+from employees
+join departments using(department_id)
+group by department_id)
+join departments using(department_id));
+
+select department_id,department_name 부서명, max(salary) 최대급여
+from employees
+join departments USING (department_id)
+group by (department_id,department_name);
+
+select employee_id 사원명, salary, department_id
+from employees;
+
+
+select last_name 사원이름, 부서명, 최대급여
+from(select department_name 부서명, 최대급여,
+from(select department_id,department_name 부서명, max(salary) 최대급여
+from employees
+group by (department_id,department_name)
+join departments using(department_id))
+join employees using(부서ID);
+
+
+select 부서명, 최대급여
+from(select department_name 부서명,max(salary) 최대급여
+    from employees
+    join departments using(department_id)
+    group by department_name);
+    
+select last_name, department_name from employees join departments using(department_id)
+where department_name='Sales' and salary=14000;
+select last_name, department_name from employees join departments using(department_id)
+where department_name='Marketing' and salary=13000;
+select last_name, department_name from employees join departments using(department_id)
+where department_name='Administration' and salary=4400;
+
+select last_name 이름, department_name 부서명, salary 최대급여
+    from employees
+    join departments using(department_id)
+    where (department_id, salary) in(select department_id, max(salary) from employees group by department_id);
+
+
+--ex6) Top N분석
+--급여를 가장 많이 받는 사원3명의 이름, 급여를 표시 하시오
+
+--[문제6] 사원들의 연봉을 구한 후 최하위 연봉자 5명을 추출하시오
+--조건1) 연봉 = 급여*12+(급여*12*커미션)
+-- 조건2) 타이틀은 사원이름, 부서명, 연봉
+-- 조건3) 연봉은 ￦25,000 형식으로 하시오
+select tt.* from
+    (select last_name 사원이름,
+            department_name 부서명, 
+            to_char(salary*12+(nvl(COMMISSION_PCT,0)*salary), 'L999,999') 연봉
+        from employees
+        join departments using(department_id)
+        order by 3)tt
+where rownum<=5;
+
+grant all on employees to c##java;
+grant create synonym to c##java;
+create SYNONYM amu FOR employees;
+
+CREATE PUBLIC SYNONYM amu1 FOR employees;
+
+grant create synonym to c##java;
+alter public SYNONYM amu FOR employees;
+select * from amu;
+create synonym hr_emp for hr.employees;

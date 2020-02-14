@@ -1,6 +1,7 @@
 package exam.bean;
 
 public class DataDTO {
+	
 	private int x;
 	private int y;
 	
@@ -16,4 +17,8 @@ public class DataDTO {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	
+	
+	
 }

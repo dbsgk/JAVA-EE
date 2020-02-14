@@ -5,43 +5,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	.td1{
-		text-align: center;
-		width: 80px;
-		height: 30px;
-		}
+
+<style type="text/css">
+	h2, .btnField{
+		text-align:center;
+	}
+	table{
+		margin:10px auto;
+		border-collapse:collapse;
+	}
+	td{
+		padding:10px;
+		border:1px solid #ddd;
+	}
+	input[type="text"], input[type="password"]{
+		width:200px;
+		padding:5px;
+	}
+	.fieldName{
+		width:100px;
+		text-align:center;
+	}
+	.btn{
+		padding:4px;
+	}
 </style>
+
 </head>
 <body>
+<h2>로그인</h2>
+
 <form name="loginForm" method="post" action="login.jsp">
-<table border="1" cellspacing="0" cellpadding="3">
+<table>
 	<tr>
-		<td class="td1">아이디</td>
-		<td style="width:180px">
-			<input type="text" name="id">
-		</td>
+		<td class="fieldName">아이디</td>
+		<td><input type="text" name="id" id="id"></td>
 	</tr>
 	<tr>
-		<td class="td1">비밀번호</td>
-		<td>
-			<input type="password" name="pwd">
-		</td>
+		<td class="fieldName">비밀번호</td>
+		<td><input type="password" name="pwd" id="pwd"></td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center">
-			<input type="button" value="로그인" onclick="checkLoginForm()">
-			<input type="button" value="회원가입" onclick="javascript:location.href='writeForm.jsp'">                                 
+		<td colspan="2" class="btnField">
+			<input type="button" class="btn" value="로그인" onclick="loginCheck()">
+			<input type="button" class="btn" value="회원가입">
 		</td>
 	</tr>
+
 </table>
 </form>
+
 </body>
 <script type="text/javascript" src="../js/member.js"></script>
+
 </html>
-
-
-
-
-
-

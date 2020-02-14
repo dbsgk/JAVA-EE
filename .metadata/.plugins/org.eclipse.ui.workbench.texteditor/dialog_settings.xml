@@ -12,6 +12,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="&lt;%"/>
 			<item value="&apos;"/>
 			<item value="pg"/>
 			<item value="// TODO Auto-generated method stub"/>

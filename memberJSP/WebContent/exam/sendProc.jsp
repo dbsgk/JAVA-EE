@@ -3,6 +3,6 @@
 <%
 request.setAttribute("apple", "사과");
 
-//페이지 이동
+// 페이지 이동
 response.sendRedirect("sendResult.jsp");
 %>

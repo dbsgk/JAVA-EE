@@ -1,0 +1,14 @@
+1. jstlModifyForm.jsp
+   jstlModify.jsp
+   jstlDelete.jsp
+
+2. 로그아웃
+http://localhost:8080/mvcMember/member/logout.do
+
+3. 중복체크
+http://localhost:8080/mvcMember/member/checkId.do
+
+member.action.CheckIdAction.java
+
+checkIdOk.jsp / checkIdFail.jsp
+사용 가능      / 사용 불가능  

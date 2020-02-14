@@ -5,54 +5,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	h3, div{
+		text-align:center;
+	}
+</style>
+
 </head>
 <body>
 <h3>** include directive **</h3>
-<%@ include file="today.jsp" %>
+<div><%@ include file="today.jsp" %> </div>
 
 <h3>** include JSP tag **</h3>
-<jsp:include page="image.jsp" />
-<br>
+<div><jsp:include page="image.jsp" /> </div>
 
 <%
 String name="홍길동";
 %>
-main.jsp name=<%=name %>
-
-<h3>** 3초뒤에 페이지 이동 **</h3>
-<% response.setHeader("Refresh", "3;url=input.jsp"); %>
+<div>
+main.jsp name = <%=name %>
+</div>
+<h3>** 3초 뒤에 페이지 이동 **</h3>
+<% response.setHeader("refresh", "1;url=input.jsp"); %>
 
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

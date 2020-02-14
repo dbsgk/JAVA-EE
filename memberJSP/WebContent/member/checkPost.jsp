@@ -1,120 +1,103 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="member.dao.MemberDAO" %>
-<%@ page import="member.bean.ZipcodeDTO" %>
-<%@ page import="java.util.List" %>
-<%
-//데이터
-request.setCharacterEncoding("utf-8");
-String sido = request.getParameter("sido");
-String sigungu = request.getParameter("sigungu");
-String roadname = request.getParameter("roadname");
-
-System.out.println(sido+", "+sigungu+", "+roadname);
-
-//DB
-MemberDAO memberDAO = MemberDAO.getInstance();
-List<ZipcodeDTO> list = null;
-if(sido!=null && roadname!=null){
-	if(sido!="" && roadname!=""){
-		list = memberDAO.getZipcodeList(sido,sigungu,roadname);
-	}
-}
-
-
-%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="member.bean.AddrDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="member.dao.MemberDAO"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/member.css">
+<link rel="stylesheet" href="../css/member.css"></link>
+
 </head>
 <body>
-<form method="post" action="checkPost.jsp">
-<table border="1" width="100%" cellspacing="0" cellpadding="3">
-<tr>
-	<td align="center">시도</td>
-	<td>
-	<select name="sido" style="width: 100px;" >
-		<option value="">시도선택</option>
-		<option value="서울">서울</option>
-		<option value="인천">인천</option>
-		<option value="대전">대전</option>
-		<option value="대구">대구</option>
-		<option value="울산">울산</option>
-		<option value="세종">세종</option>
-		<option value="광주">광주</option>
-		<option value="경기">경기</option>
-		<option value="강원">강원</option>
-		<option value="전남">전남</option>
-		<option value="전북">전북</option>
-		<option value="경남">경남</option>
-		<option value="경북">경북</option>
-		<option value="충남">충남</option>
-		<option value="충북">충북</option>
-		<option value="부산">부산</option>
-		<option value="제주">제주</option>
-	</select>
-	</td>
-	<td align="center">시.군.구</td>
-	<td>
-		<input type="text" name="sigungu">
-	</td>
-</tr>
-<tr>
-	<td align="center">도로명</td>
-	<td  colspan="3">
-		<input type="text" name="roadname" style="width: 200px">
-		<input type="submit" value="검색" >
-	</td>
-</tr>
-<tr>
-	<td align="center">우편번호</td>
-	<td colspan="3" align="center">주소</td>
-</tr>
 
-<%if(list!=null){ %>
-	<%for(ZipcodeDTO zipcodeDTO : list){ 
-		String address = zipcodeDTO.getSido()+" "
-				+zipcodeDTO.getSigungu()+" "
-				+zipcodeDTO.getYubmyundong()+" "
-				+zipcodeDTO.getRi()+" "
-				+zipcodeDTO.getRoadname()+" "
-				+zipcodeDTO.getBuildingname();
-	%>
+<%
+MemberDAO memberDAO = MemberDAO.getInstance();
+List<String> list = memberDAO.getSido();
+
+request.setCharacterEncoding("utf-8");
+
+String sido = request.getParameter("sido")!=null ? request.getParameter("sido") : "";
+String sigungu = request.getParameter("sigungu")!=null ? request.getParameter("sigungu") : "";
+String roadname = request.getParameter("roadname")!=null ? request.getParameter("roadname") : "";
+String buldingname = request.getParameter("buldingname")!=null ? request.getParameter("buldingname") : "";
+
+List<AddrDTO> addrList = memberDAO.getAddr(sido, sigungu, roadname);
+%>
+
+<form name="form" method="post" action="checkPost.jsp">
+<table>
+	<tr >
+		<td class="fieldName">시도</td>
+		<td><select name="sido">
+				<option value="">시도선택
+			<%for(String s : list){ %>
+				<option value="<%=s %>"<%if(sido.equals(s)){ %> selected<%} %>>
+					<%=s %>
+			<%} %>
+			</select>
+		</td>
+		<td class="fieldName">시,군,구</td>
+		<td><input type="text" name="sigungu" id="sigungu" value="<%=sigungu %>"></td>
+	</tr>
+	<tr>
+		<td class="fieldName">도로명</td>
+		<td colspan="3">
+			<input type="text" name="roadname" id="roadname" style="width:82%;" value="<%=roadname %>">
+			<input type="submit" value="검색">
+		</td>
+	</tr>
+	<tr>
+		<td class="fieldName">우편번호</td>
+		<td class="fieldName" colspan="3">주소</td>
+	</tr>
+	<%int j = 0; %>
+	<%for(AddrDTO addrDTO : addrList){ %>
+		<%
+		String zipcode = addrDTO.getZipcode().trim();
+		
+		String new_addr = addrDTO.getSido() + " ";
+		new_addr += addrDTO.getSigungu()!=null ? addrDTO.getSigungu() + " " : "";
+		new_addr += addrDTO.getRoadname()!=null ? addrDTO.getRoadname() + " " : "";
+		new_addr += addrDTO.getBuildingname()!=null ? addrDTO.getBuildingname() : ""; 
+		
+		String old_addr = addrDTO.getSido() + " ";
+		old_addr += addrDTO.getSigungu()!=null ? addrDTO.getSigungu() + " ":"";
+		old_addr += addrDTO.getYubmyundong() + " ";
+		old_addr += addrDTO.getRi()!=null ? addrDTO.getRi():"";
+		%>
+		
 		<tr>
-			<td align="center"><%=zipcodeDTO.getZipcode()%></td>
-			<td colspan="3"><a class="addressA" href="#" onclick="checkPostClose('<%=zipcodeDTO.getZipcode()%>','<%=address%>')"><%=address%></a></td>
+			<td class="<%if(++j%2==1){ %>
+								fieldNames
+							<%} else {%>
+								fieldName
+							<%} %>">
+				<a onclick="selectAddr('<%=zipcode%>', '<%=new_addr %>')" style="cursor:pointer;"><%=zipcode %></a>
+			</td>
+			<td colspan="3" <%if(j%2==1){ %>class="shadow"<%} %>>
+				<div class="newAddr">
+				<a onclick="selectAddr('<%=zipcode%>', '<%=new_addr %>')" style="cursor:pointer;">
+					<%=new_addr %> 
+				</a>
+				</div>
+				<div class="oldAddr">
+				<a onclick="selectAddr('<%=zipcode%>', '<%=old_addr %>')" style="cursor:pointer;">
+					(구)<%=old_addr %>
+				</a>
+				</div>
+			</td>
 		</tr>
-	<%}//for %>
-<%}//if %>
+	<%} %>
 </table>
 </form>
+
 </body>
-<script>
-function checkPostClose(zipcode, address){
-	/* opener.document.forms[0].zipcode.value = zipcode;
-	opener.document.forms[0].addr1.value = address;
-	window.close();
-	opener.document.forms[0].addr2.focus(); */
-	
-	opener.document.getElementById('zipcode').value = zipcode;
-	opener.document.getElementById('addr1').value = address;
-	window.close();
-	opener.document.getElementById('addr2').focus();
-}
-</script>
+
+<script type="text/javascript" src="../js/member.js"></script>
+
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

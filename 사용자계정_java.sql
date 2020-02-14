@@ -203,3 +203,17 @@ CREATE TABLE board(
  CREATE SEQUENCE seq_board  NOCACHE NOCYCLE;
  
 select * from board;
+
+update board set hit=hit+1 where seq=5;
+commit;
+
+create synonym hr_emp for hr.employees;
+select * from hr_emp;
+drop synonym;
+
+create table usertable(
+name varchar2(30) not null,
+id varchar2(30) primary key,
+pwd varchar2(30) not null
+);
+select * from usertable;
