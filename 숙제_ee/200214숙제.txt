@@ -1,0 +1,29 @@
+* 숙제
+- 회원가입
+- 로그인 (left.jsp -> top.jsp 이동)
+  left.jsp에는
+  loginForm.jsp / loginOk.jsp
+- ${display2} -> 이런거 만들지 마삼 
+
+- 이미지 게시판 ( 등록, 목록)
+- 사진 업로드 (storage)
+
+1페이지당 3개씩
+-------------------------------------------------
+번호    이미지     상품명     단가    개수     합계
+-------------------------------------------------
+3                 딸기     5,000    2      10,000
+2                 딸기     5,000    2      10,000
+1                 딸기     5,000    2      10,000
+--------------------------------------------------
+Pacakge : imageboard.action
+          ImageboardWriteFormAction.java
+          ImageboardWriteAction.java
+          ImageboardListAction.java
+
+
+
+
+
+
+
