@@ -44,7 +44,8 @@ $('#loginFormBtn').click( function(){
 		$('#div_loginPwd').css('font-size','8pt');
 		$('#div_loginPwd').css('font-weight','bold');
 		
-	}
+	}else 
+		$('form[name=loginForm]').submit();
 } );
 $('#writeFormBtn').click(function(){
 	$('#div_name').empty();
@@ -78,7 +79,7 @@ $('#writeFormBtn').click(function(){
 		$('#div_idcheck').css('font-size','8pt');
 		$('#div_idcheck').css('font-weight','bold');
 	}else 
-		$('form[name=writeForm]').submit;
+		$('form[name=writeForm]').submit();
 	
 });
 

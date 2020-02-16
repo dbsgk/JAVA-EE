@@ -1,0 +1,43 @@
+@charset "UTF-8";
+.shadow{
+		background-color:#eee;
+}
+.newAddr{
+	
+}
+.oldAddr{
+	font-size:11px;
+}
+td{
+	border:1px solid #ddd;
+	font-size:12pt;
+	padding:4px;
+}
+select{
+	width:100px;
+	height:25px;
+}
+input[type="text"]{
+	padding:3px;
+}
+.field{
+	width:97%;
+}
+.fieldNames{
+	width:85px;
+	text-align:center;
+}
+.fieldName{
+	padding:3px; 
+	text-align:center;
+	min-width:90px;
+	background-color:#FAFAFA;
+}
+a{
+	color:black;
+	text-decoration:none;
+}
+a:hover{
+	color:green;
+	text-decoration:underline;
+}

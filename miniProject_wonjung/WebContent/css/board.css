@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+#boardList td:not(.search){
+	border-top:1px solid #eee;
+	border-bottom:1px solid #eee;
+	padding:3px;
+	font-size:15px;
+}
+.columnName{
+	background-color:#eee;
+}
+.columnName>td{
+	font-weight:bold;
+	text-align:center;
+}
+.name{
+	width:100px;
+}
+.subject{
+	width:300px;
+	padding-left:10px;
+}
+.subject>a{
+	color:black;
+	text-decoration:none;
+}
+.subject>a:hover{
+	text-decoration:underline;
+}
+.logtime{
+	width:100px;
+}
+.hcenter{
+	text-align:center;
+}
+.seq, .hit{
+	width:70px;
+}
+.odd{
+	background-color:#FAFAFA;
+}
+#boardList tr:not(.columnName):not(.search_):hover{
+	background-color:#FBF5EF;
+	cursor:pointer;
+}
+.search{
+	text-align:right;
+	border-top:0px solid #fff;
+	padding-bottom:5px;
+}
+#pageNav{
+	margin:3px auto;
+}
+#pageNav td{
+	border:1px solid #eee;
+	text-align:center;
+	min-width:20px;
+	padding:2px;
+}
+#paging{
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+#currentPaging{
+	color: red;
+	text-decoration: none;
+	cursor: pointer;
+}

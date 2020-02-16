@@ -261,7 +261,8 @@ public class MemberDAO {
 		}
 		return list;
 	}
-	public MemberDTO login(String id, String pwd) {
+	public MemberDTO getMemberDTO(String id, String pwd) {
+		
 		MemberDTO memberDTO = null;
 		String sql = "select * from member where id=? and pwd=?";
 		

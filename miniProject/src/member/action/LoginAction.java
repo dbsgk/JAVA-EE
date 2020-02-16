@@ -13,14 +13,14 @@ public class LoginAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		
+		System.out.println("loginAction");
 		//데이터
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		
 		//DB
 		MemberDAO memberDAO = MemberDAO.getInstance();
-		MemberDTO memberDTO = memberDAO.login(id, pwd);
+		MemberDTO memberDTO = memberDAO.getMemberDTO(id, pwd);
 		
 		//응답
 		if(memberDTO!=null) {
