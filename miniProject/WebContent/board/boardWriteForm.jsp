@@ -34,7 +34,7 @@
 <body>
 
 <h2>글쓰기</h2>
-<form action="boardWrite.jsp">
+<form action="boardWrite.do" id="boardWriteForm" name="boardWriteForm">
 <input type="hidden" name="id" value="<%=session.getAttribute("memId") %>">
 <input type="hidden" name="name" value="<%=session.getAttribute("memName") %>">
 <input type="hidden" name="email" value="<%=session.getAttribute("memEmail") %>">

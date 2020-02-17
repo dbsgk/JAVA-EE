@@ -217,3 +217,16 @@ id varchar2(30) primary key,
 pwd varchar2(30) not null
 );
 select * from usertable;
+desc usertable;
+create table usertable(
+name varchar2(30) not null,
+id varchar2(30) primary key,
+pwd varchar2(30) not null);
+select * from user_constraints where table_name='USERTABLE';
+
+delete usertable;
+commit;
+
+select * from usertable;
+
+delete usertable where id='hong';

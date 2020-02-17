@@ -22,18 +22,20 @@ public class LoginAction implements CommandProcess {
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		MemberDTO memberDTO = memberDAO.getMemberDTO(id, pwd);
 		
-		//응답
+		//응답.
+		String loginResult = null;
 		if(memberDTO!=null) {
 			//세션
 			HttpSession session = request.getSession();
 			session.setAttribute("memName", memberDTO.getName());
 			session.setAttribute("memId", id);
 			session.setAttribute("memEmail", memberDTO.getEmail1()+"@"+memberDTO.getEmail2());
-			request.setAttribute("display",	"/member/loginOk.jsp");
+			loginResult = "success";
 		}else {
-			request.setAttribute("display",	"/member/loginFail.jsp");
+			loginResult = "fail";
 		}
-		
+		request.setAttribute("display",	"/template/body.jsp");
+		request.setAttribute("loginResult", loginResult);
 		return "/main/index.jsp";
 	}
 
