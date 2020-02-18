@@ -1,3 +1,4 @@
+
 package member.action;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class LoginAction implements CommandProcess {
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		MemberDTO memberDTO = memberDAO.getMemberDTO(id, pwd);
 		
-		//응답.
+		//응답
 		String loginResult = null;
 		if(memberDTO!=null) {
 			//세션
@@ -30,10 +31,12 @@ public class LoginAction implements CommandProcess {
 			session.setAttribute("memName", memberDTO.getName());
 			session.setAttribute("memId", id);
 			session.setAttribute("memEmail", memberDTO.getEmail1()+"@"+memberDTO.getEmail2());
+			session.setAttribute("memberDTO", memberDTO);
 			loginResult = "success";
 		}else {
 			loginResult = "fail";
 		}
+		
 		request.setAttribute("display",	"/template/body.jsp");
 		request.setAttribute("loginResult", loginResult);
 		return "/main/index.jsp";

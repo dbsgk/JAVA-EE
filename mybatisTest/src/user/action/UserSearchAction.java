@@ -17,26 +17,36 @@ public class UserSearchAction implements UserAction{
 		System.out.println("2. 아이디 검색");
 		System.out.print("번호 입력: ");
 		int choice = scan.nextInt();
-		UserDAO userDAO = UserDAO.getInstance();
+		
+		String input = null;
+		//String columnName = null;
+		
 		Map<String, String> map = new HashMap<String, String>();
+		
 		if(choice==1) {
 			System.out.print("검색할 이름을 입력하세요 : ");
-			String name = "%"+scan.next()+"%";
+			input = "%"+scan.next()+"%";
+			//columnName="name";
 			map.put("searchMethod", "name");
-			map.put("input", name);
-			//userDAO.userSearch(name, "name");
+			map.put("input", input);
 		}else if(choice==2){
 			System.out.print("검색할 아이디를 입력하세요 : ");
-			String id = "%"+scan.next()+"%";
+			input = "%"+scan.next()+"%";
+			//columnName="id";
 			map.put("searchMethod", "id");
-			map.put("input", id);
-			//userDAO.userSearch(id, "id");
+			map.put("input", input);
 		}
+		//map.put("columnName",columnName);
+		//map.put("input",input); 쌤은 두 번 안쓰고 이렇게 한 번에
+		
+		UserDAO userDAO = UserDAO.getInstance();
 		List<UserDTO> list = userDAO.userSearch(map);
+		
 		for(UserDTO userDTO : list) {
 			System.out.println(userDTO.getName()+"\t"+userDTO.getId()+"\t"+userDTO.getPwd());
 		}//for
-		
+		if(list.size()==0)
+		System.out.println("검색 결과가 없습니다.");
 	}
 
 }

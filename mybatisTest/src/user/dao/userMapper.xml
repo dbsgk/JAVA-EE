@@ -21,7 +21,7 @@
 	<delete id="userDelete" parameterType="String">
 		delete usertable where id=#{id}
 	</delete>
-	<select id="userSearch" parameterType="HashMap" resultType="user">
+	<select id="userSearch" parameterType="java.util.Map" resultType="user"><!-- parameterType에 그냥 HashMap만 쓰지말고 전부 적어줘야한다. -->
 		select * from usertable where 
 		<if test=" searchMethod == 'name' ">
 			name 
@@ -31,4 +31,19 @@
 		</if>
 		like #{input}
 	</select>
+<!-- 	<select id="userSearch" parameterType="java.util.Map" resultType="user">parameterType에 그냥 HashMap만 쓰지말고 전부 적어줘야한다.
+		select * from usertable where ${columnName} like '%'|| #{input}||'%'
+	</select> -->
+<!-- 	<select id="userSearch" parameterType="java.util.Map" resultType="user">parameterType에 그냥 HashMap만 쓰지말고 전부 적어줘야한다.
+		select * from usertable where 
+		<choose>
+			<when test=" searchMethod == 'name' ">
+				name like '%'|| #{input}||'%'
+			</when>
+			<otherwise>
+				id 
+			</if>
+			like #{input}
+		</choose>
+	</select> -->
 </mapper><!-- 알맹이가 없어도 mapper만들어 놔야 나중에 에러가 안생긴다.  -->

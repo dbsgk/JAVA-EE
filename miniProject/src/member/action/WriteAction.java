@@ -8,7 +8,7 @@ import com.control.CommandProcess;
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
 
-public class WriteActioin implements CommandProcess {
+public class WriteAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
@@ -29,13 +29,12 @@ public class WriteActioin implements CommandProcess {
 		String addr2 = request.getParameter("addr2");
 		
 		MemberDTO memberDTO = new MemberDTO(name, id, pwd, gender, email1, email2, tel1, tel2, tel3, zipcode, addr1, addr2);
-		boolean insertTF = memberDAO.insert(memberDTO);
-		System.out.println(insertTF);
-		if(insertTF) {
+		int result = memberDAO.insert(memberDTO);
+		System.out.println(result);
+		if(result==1) {
 			request.setAttribute("display", "/member/writeOk.jsp");
 		}else
 		request.setAttribute("display", "/member/writeFail.jsp");
-		System.out.println();
 		return "/main/index.jsp";
 		
 	}

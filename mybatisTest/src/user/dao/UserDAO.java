@@ -85,12 +85,6 @@ public class UserDAO {
 		sqlSession.commit();
 		sqlSession.close();
 	}
-	public UserDTO userSearch(String input, String searchMethod) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		UserDTO userDTO = sqlSession.selectOne("userSQL.userSearch", input);
-		sqlSession.close();
-		return userDTO;
-	}
 
 	public List<UserDTO> userSearch(Map<String, String> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();

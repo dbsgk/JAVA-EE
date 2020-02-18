@@ -47,33 +47,34 @@ $('#loginFormBtn').click( function(){
 	}else 
 		$('form[name=loginForm]').submit();
 } );
+
 $('#writeFormBtn').click(function(){
 	$('#div_name').empty();
 	$('#div_id').empty();
 	$('#div_pwd').empty();
 	$('#div_repwd').empty();
 	//if($('input[id=name
-	if($('#name').val()==''){
+	if($('#write_name').val()==''){
 		$('#div_name').text('이름을 입력하세요');
 		$('#div_name').css('color','red');
 		$('#div_name').css('font-size','8pt');
 		$('#div_name').css('font-weight','bold');
-	}else if($('#id').val()==''){//id
+	}else if($('#write_id').val()==''){//id
 		$('#div_id').text('아이디를 입력하세요');
 		$('#div_id').css('color','red');
 		$('#div_id').css('font-size','8pt');
 		$('#div_id').css('font-weight','bold');
-	}else if($('#pwd').val()==''){//pwd
+	}else if($('#write_pwd').val()==''){//pwd
 		$('#div_pwd').text('비밀번호를 입력하세요');
 		$('#div_pwd').css('color','red');
 		$('#div_pwd').css('font-size','8pt');
 		$('#div_pwd').css('font-weight','bold');
-	}else if($('#pwd').val() != $('#pwdcheck').val()){//repwd
+	}else if($('#write_pwd').val() != $('#pwdcheck').val()){//repwd
 		$('#div_repwd').text('비밀번호가 다릅니다.');
 		$('#div_pwd').css('color','red');
 		$('#div_pwd').css('font-size','8pt');
 		$('#div_pwd').css('font-weight','bold');
-	}else if($('#id').val() != $('#check').val()){
+	}else if($('#write_id').val() != $('#check').val()){
 		$('#div_idcheck').text('중복체크 하세요');
 		$('#div_idcheck').css('color','red');
 		$('#div_idcheck').css('font-size','8pt');
@@ -82,6 +83,30 @@ $('#writeFormBtn').click(function(){
 		$('form[name=writeForm]').submit();
 	
 });
+/*$('#modifyFormBtn').click(function(){
+	$('#div_name').empty();
+	$('#div_id').empty();
+	$('#div_pwd').empty();
+	$('#div_repwd').empty();
+	if($('#modify_name').val()==''){
+		$('#div_name').text('이름을 입력하세요');
+		$('#div_name').css('color','red');
+		$('#div_name').css('font-size','8pt');
+		$('#div_name').css('font-weight','bold');
+	}else if($('#modify_pwd').val()==''){//pwd
+		$('#div_pwd').text('비밀번호를 입력하세요');
+		$('#div_pwd').css('color','red');
+		$('#div_pwd').css('font-size','8pt');
+		$('#div_pwd').css('font-weight','bold');
+	}else if($('#modify_pwd').val() != $('#modify_pwdcheck').val()){//repwd
+		$('#div_repwd').text('비밀번호가 다릅니다.');
+		$('#div_pwd').css('color','red');
+		$('#div_pwd').css('font-size','8pt');
+		$('#div_pwd').css('font-weight','bold');
+	}else 
+		$('form[name=modifyForm]').submit();
+	
+});*/
 
 $('#loginId').focusout(function(){
 	$('#div_loginId').empty();
@@ -98,7 +123,6 @@ $('#loginId').focusout(function(){
 							.css('font-weight','bold');
 	}	
 });
-
 function updateCheck(){
 	if(document.getElementById("pwd").value==""){
 		alert("비밀번호를 입력하세요!");

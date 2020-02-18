@@ -13,6 +13,9 @@
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
 			<item value="&lt;%"/>
+			<item value="&lt;/head&gt;"/>
+			<item value="//조회수 - 새로고침 방지"/>
+			<item value="try { conn = ds.getConnection(); String sql ="/>
 			<item value="&apos;"/>
 			<item value="pg"/>
 			<item value="// TODO Auto-generated method stub"/>

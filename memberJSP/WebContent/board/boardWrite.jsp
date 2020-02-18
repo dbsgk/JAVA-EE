@@ -6,8 +6,9 @@
 <jsp:useBean id="boardDAO" class="board.dao.BoardDAO" />
 <jsp:setProperty property="*" name="boardDTO"/>
 
-<% //DB
-boolean result = boardDAO.insert(boardDTO);
+<%
+	//DB
+boolean result = boardDAO.boardWrite(boardDTO);
 %>
 
 

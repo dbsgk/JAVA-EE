@@ -18,18 +18,18 @@ public class BoardPaging {
 			endPage = totalP;
 		
 		if(startPage > pageBlock)
-			pagingHTML.append("<td class='prep'><a href=\"boardList.jsp?pg=" + (startPage-1) + "\">이전</a></td>");
+			pagingHTML.append("<td class='prep'><a href=\"boardList.do?pg=" + (startPage-1) + "\">이전</a></td>");
 		
 		for(int i = startPage; i <= endPage; i++) {
 			if(i == currentPage) {
-				pagingHTML.append("<td><a id='currentPaging' href='boardList.jsp?pg=" + i + "'>" + i + "</a></td>");
+				pagingHTML.append("<td><a id='currentPaging' href='boardList.do?pg=" + i + "'>" + i + "</a></td>");
 			}else {
-				pagingHTML.append("<td><a id='paging' href='boardList.jsp?pg=" + i + "'>" + i + "</a></td>");
+				pagingHTML.append("<td><a id='paging' href='boardList.do?pg=" + i + "'>" + i + "</a></td>");
 			}
 		}
 		
 		if(endPage < totalP)
-			pagingHTML.append("<td><a href=\"boardList.jsp?pg=" + (endPage+1) + "\">다음</a></td>");
+			pagingHTML.append("<td><a href=\"boardList.do?pg=" + (endPage+1) + "\">다음</a></td>");
 		
 	}
 

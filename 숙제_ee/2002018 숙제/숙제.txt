@@ -1,0 +1,4 @@
+1. MemberDAO의 내용을 mybatis로 변경
+2. ImageboardDAO의 내용을 mybatis로 변경
+   - imageboardWriteForm.jsp 에서 유효성 검사를 jQuery로 해주세요
+     (상품코드, 상품명, 이미지)

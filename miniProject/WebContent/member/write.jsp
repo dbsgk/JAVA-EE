@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    pageEncoding="UTF-8" %>
 
-<c:if test="${result == true}">
-	회원가입 성공
-</c:if>
-<c:if test="${result == false}">
-	회원가입 실패
-</c:if>
+<script>
+window.onload=function(){
+	if(${su}==1){
+		alert("회원가입 성공");
+		location.href="/miniProject/main/index.do";
+	}else{
+		alert("회원가입 실패");
+		location.href="/miniProject/member/writeForm.do";
+	}
+};
+</script>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardSQL">
+
+	<resultMap type="board" id="boardResult">
+		<result property="seq" column="seq_board"/>
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="email" column="EMAIL"/>
+		<result property="subject" column="SUBJECT"/>
+		<result property="content" column="CONTENT"/>
+		<result property="ref" column="REF"/>
+		<result property="lev" column="LEV"/>
+		<result property="step" column="STEP"/>
+		<result property="pseq" column="PSEQ"/>
+		<result property="reply" column="REPLY"/>
+		<result property="hit" column="HIT"/>
+		<result property="logtime" column="LOGTIME"/>		
+	</resultMap>
+
+	<insert id="boardWrite" parameterType="board.bean.BoardDTO">
+		INSERT INTO 
+			board(id, name, email, subject, content, seq, ref) 
+			VALUES(#{id},#{name},#{email},#{subject},#{content},seq_board.nextval,seq_board.currval)
+	</insert>
+	
+	<select id="getList" resultType="board.bean.BoardDTO" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT rownum rn, tt.* from 
+			(SELECT * FROM board ORDER BY ref DESC) tt) 
+		WHERE rn >=  #{startNum}  AND rn <=  #{endNum}
+		]]><!-- CDATA/ oracle gt,lt/ between 부등호 사용하는 세가지 방법-->
+	</select>
+	
+	<select id="getBoard" parameterType="int" resultType="board">
+		SELECT * FROM board WHERE seq = #{seq}
+	</select>
+	
+	<select id="getBoardTotalA" resultType="int">
+		SELECT COUNT(*) FROM board
+	</select>
+	
+	<update id="boardUpdate" parameterType="java.util.Map">
+		UPDATE board SET subject=#{subject}, content=#{content}, logtime = sysdate WHERE seq= #{seq}
+	</update>
+	
+	<update id="boardHit" parameterType="int">
+		UPDATE board SET hit=hit+1 WHERE seq=#{seq}
+	</update>
+</mapper>
