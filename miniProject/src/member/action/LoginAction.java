@@ -1,4 +1,3 @@
-
 package member.action;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,31 +13,30 @@ public class LoginAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		System.out.println("loginAction");
 		//데이터
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		String id = request.getParameter("loginId");
+		String pwd = request.getParameter("loginPwd");
 		
 		//DB
 		MemberDAO memberDAO = MemberDAO.getInstance();
-		MemberDTO memberDTO = memberDAO.getMemberDTO(id, pwd);
+		String name = memberDAO.getMemberName(id, pwd);
+		MemberDTO memberDTO = memberDAO.getMember(id);
+		
+		String display = (String) request.getAttribute("display");
+		System.out.println(display);
 		
 		//응답
-		String loginResult = null;
-		if(memberDTO!=null) {
-			//세션
-			HttpSession session = request.getSession();
-			session.setAttribute("memName", memberDTO.getName());
-			session.setAttribute("memId", id);
-			session.setAttribute("memEmail", memberDTO.getEmail1()+"@"+memberDTO.getEmail2());
-			session.setAttribute("memberDTO", memberDTO);
-			loginResult = "success";
-		}else {
-			loginResult = "fail";
+		request.setAttribute("display", "/template/body.jsp");
+		if(name==null) {
+			return "/main/index.jsp";
 		}
 		
-		request.setAttribute("display",	"/template/body.jsp");
-		request.setAttribute("loginResult", loginResult);
+		HttpSession session = request.getSession();
+		session.setAttribute("memName", name);
+		session.setAttribute("memId", id);
+		session.setAttribute("memEmail", memberDTO.getEmail1() + "@" + memberDTO.getEmail2());
+		
+		//request.setAttribute("display", "/template/body.jsp");
 		return "/main/index.jsp";
 	}
 

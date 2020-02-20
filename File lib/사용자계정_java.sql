@@ -235,3 +235,5 @@ select * from board order by logtime;
 		SELECT * FROM 
         (SELECT rownum rn, tt.* from
         (SELECT * FROM board ORDER BY ref DESC) tt) WHERE rn >=  1  AND rn <=  3;
+        
+desc member;

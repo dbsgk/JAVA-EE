@@ -1,69 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
-<style type="text/css">
-	h2, .btnField{
-		text-align:center;
-	}
-	table{
-		margin:10px auto;
-		border-collapse:collapse;
-	}
-	td{
-		padding:10px;
-		border:1px solid #ddd;
-	}
-	input[type="text"], input[type="password"]{
-		width:200px;
-		padding:5px;
-	}
-	.fieldName{
-		width:100px;
-		text-align:center;
-	}
-	.btn{
-		padding:4px;
-	}
-</style>
+<h3>로그인</h3>
 
-</head>
-<body>
-<h2>로그인</h2>
-
-<form name="loginForm" method="post" action="/miniProject/member/login.do">
-<table>
+<form name="loginForm" method="post" action="../member/login.do">
+<table id="table-login">
 	<tr>
-		<td class="fieldName">아이디</td>
-		<td>
-			<input type="text" name="id" id="loginId">
-			<div id="div_loginId"></div>
-		</td>
+		<td><input type="text" name="loginId" id="loginId" placeholder="아이디 입력"><div id="div-loginId"></div></td>
 	</tr>
 	<tr>
-		<td class="fieldName">비밀번호</td>
-		<td>
-			<input type="password" name="pwd" id="loginPwd">
-			<div id="div_loginPwd"></div>
-		</td>
+		<td><input type="password" name="loginPwd" id="loginPwd" placeholder="비밀번호 입력"><div id="div-loginPwd"></div></td>
 	</tr>
 	<tr>
-		<td colspan="2" class="btnField">
-			<!-- <input type="button" class="btn" value="로그인" onclick="loginCheck()"> -->
-			<input id="loginFormBtn"type="button" class="btn" value="로그인">
-			<input type="button" class="btn" value="회원가입" onclick="javascript:location.href='/miniProject/member/writeForm.do'">
+		<td class="btnField">
+			<input type="button" class="btn" value="로그인" id="btn-login">
+			<input type="button" class="btn" value="회원가입" onclick="location.href='../member/writeForm.do'">
 		</td>
 	</tr>
 
 </table>
 </form>
 
-</body>
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/member.js"></script>
 
-</html>

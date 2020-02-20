@@ -5,13 +5,14 @@
 		<item key="DIALOG_Y_ORIGIN" value="259"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="&quot;"/>
+		<item key="selection" value="zipcode"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="zipcode"/>
 			<item value="&lt;%"/>
 			<item value="&lt;/head&gt;"/>
 			<item value="//조회수 - 새로고침 방지"/>
@@ -26,6 +27,7 @@
 			<item value="p4"/>
 		</list>
 		<list key="replacehistory">
+			<item value="zipcode11"/>
 			<item value="&quot;"/>
 			<item value="JPanel"/>
 			<item value="p5"/>

@@ -55,9 +55,9 @@
 <fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
 <fullyQualifiedTypeName name="board.bean.BoardDTO"/>
 <fullyQualifiedTypeName name="board.dao.BoardDAO"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="member.dao.MemberDAO"/>
 <fullyQualifiedTypeName name="member.bean.MemberDTO"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
 </qualifiedTypeNameHistroy>

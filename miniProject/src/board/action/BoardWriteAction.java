@@ -1,46 +1,46 @@
 package board.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.control.CommandProcess;
 
+import board.bean.BoardDTO;
 import board.dao.BoardDAO;
 
 public class BoardWriteAction implements CommandProcess {
-
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		
-		//데이터
-		String subject = request.getParameter("subject");
-		String content = request.getParameter("content");
-		
-		//세션
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("memId");
-		String name = (String)session.getAttribute("memName");
-		String email = (String)session.getAttribute("memEmail");
-
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", id);
-		map.put("name", name);
-		map.put("email", email);
-		map.put("subject", subject);
-		map.put("content", content);
-
-		//DB
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		int result = boardDAO.boardWrite(map);
 		
-		request.setAttribute("result", result);
-		request.setAttribute("display", "/board/boardWrite.jsp");
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("memId");
+		String name = (String) session.getAttribute("memName");
+		String email = (String) session.getAttribute("memEmail");
+
+		String subject = request.getParameter("subject");
+		subject = subject.replaceAll("<","&lt;");
+		subject = subject.replaceAll(">","&gt;");
+		subject = subject.replaceAll("\"","&quot;");
+		subject = subject.replaceAll("&","&amp;");
+
+		String content = request.getParameter("content");
+		content = content.replaceAll("<","&lt;");
+		content = content.replaceAll(">","&gt;");
+		content = content.replaceAll("\"","&quot;");
+		content = content.replaceAll("&","&amp;");
+		
+		BoardDTO boardDTO = new BoardDTO(id, name, email, subject, content);
+		
+		
+		if(boardDAO.insert(boardDTO)) {
+			request.setAttribute("display", "/board/boardOk.jsp?pg=1");
+		}
+		else
+			request.setAttribute("display", "/board/fail.jsp");
 		
 		return "/main/index.jsp";
 	}
-
 }

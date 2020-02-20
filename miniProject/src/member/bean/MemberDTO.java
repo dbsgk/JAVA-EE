@@ -2,9 +2,11 @@ package member.bean;
 
 import java.util.Date;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class MemberDTO {
 
 	private String name;
@@ -21,7 +23,6 @@ public class MemberDTO {
 	private String addr2;
 	private Date logtime;
 	
-	public MemberDTO() {}
 	public MemberDTO(String name, String id, String pwd, String gender, String email1, String email2,
 			String tel1, String tel2, String tel3, String zipcode, String addr1, String addr2, Date logtime) {
 		super();
@@ -55,4 +56,9 @@ public class MemberDTO {
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 	}
+	
+	public MemberDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
 }

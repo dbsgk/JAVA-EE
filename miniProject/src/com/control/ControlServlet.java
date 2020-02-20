@@ -19,7 +19,6 @@ public class ControlServlet extends HttpServlet {
 
 	private Map<String, Object> map = new HashMap<String, Object>();
 	
-	//처음에 딱 한 번 web.xml가서 읽어와라
 	public void init(ServletConfig config) {
 		String propertyConfig = config.getInitParameter("propertyConfig");
 		System.out.println("propertyConfig = "+propertyConfig+"\n");
@@ -87,26 +86,23 @@ public class ControlServlet extends HttpServlet {
 		
 	}
        
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//주소로 데이터, 한글 알아서함
-		execute(request, response);
-	}
+ 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 		execute(request,response);
+ 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//내부적, 한글처리해줘야
-		execute(request, response);
+		execute(request,response);
 	}
-
+	
 	protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println();
 		
-		//get방식인지 ,post방식인지 물어보는 if문. POST인지 GET인지 대문자로만 나와서 대문자로 물어야 함.
-		//한글처리
+		//�ѱ�ó��
 		if(request.getMethod().equals("POST")){
 			request.setCharacterEncoding("UTF-8");
 		}
 		
-		//http://localhost:8080/miniproject/main/index.do ��û
+		//http://localhost:8080/miniproject/main/index.do ��û
 		String category = request.getServletPath();
 		System.out.println("category = "+category);
 		
@@ -121,8 +117,8 @@ public class ControlServlet extends HttpServlet {
 		}
 		
 		//forward	
-		RequestDispatcher dispatcher = request.getRequestDispatcher(view);//������
-		dispatcher.forward(request, response);//����� �ѱ��
+		RequestDispatcher dispatcher = request.getRequestDispatcher(view);//������
+		dispatcher.forward(request, response);//����� �ѱ��
 	}
 
 }

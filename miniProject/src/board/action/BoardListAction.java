@@ -1,8 +1,6 @@
 package board.action;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +23,8 @@ public class BoardListAction implements CommandProcess {
 		int endNum = pg * articlesPerPage;
 		int startNum = endNum - articlesPerPage + 1;
 
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startNum", startNum);
-		map.put("endNum", endNum);
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		List<BoardDTO> list = boardDAO.getList(map);
+		List<BoardDTO> list = boardDAO.getList(startNum, endNum);
 
 		// 쿠키 설정 - 목록으로 돌아왔으므로 hit_on = true 
 		Cookie cookie = new Cookie("hit_on", "true");

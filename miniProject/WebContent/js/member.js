@@ -1,16 +1,74 @@
 function loginCheck(){
-	if(document.getElementById("id").value==""){
+	if(document.getElementById("loginId").value==""){
 		alert("아이디를 입력하세요!");
-		document.getElementById("id").focus();
-	} else if(document.getElementById("pwd").value==""){
+		document.getElementById("loginId").focus();
+	} else if(document.getElementById("loginPwd").value==""){
 		alert("비밀번호를 입력하세요!");
-		document.getElementById("pwd").focus();
+		document.getElementById("loginPwd").focus();
 	} else
-		document.loginForm.submit();
+		document.forms[0].submit();
 }
 
+$('#btn-login').click(function(){
+	if(loginIdCheck() && loginPwdCheck()){
+		$('form[name=loginForm]').submit();
+	}
+});
+
+function loginIdCheck(){
+	if($('#loginId').val()==''){
+		$('#div-loginId').text('ID를 입력하세요.').attr('class', 'color-red');
+		return false;
+	}else if($('#loginId').val()!=''){
+		$('#div-loginId').empty();
+		return true;
+	}
+}
+function loginPwdCheck(){
+	if($('#loginPwd').val()==''){
+		$('#div-loginPwd').text('비밀번호를 입력하세요.').attr('class', 'color-red');
+		return false;
+	}else if($('#loginPwd').val()!=''){
+		$('#div-loginPwd').empty();
+		return true;
+	}
+}
+$('#loginId').focusout(function(){
+	loginIdCheck();
+});
+$('#loginPwd').focusout(function(){
+	loginPwdCheck();
+});
+
+$('#btn-writeForm').click(function(){
+	$('#div-name').empty();
+	$('#div-id').empty();
+	$('#div-pwd').empty();
+	$('#div-pwdcheck').empty();
+	
+	if($('#name').val() == ''){
+		$('#div-name').text('이름을 입력하세요');
+		$('#div-name').attr('class', 'color-red');
+	}else if($('#id').val() == ''){
+		$('#div-id').text('ID를 입력하세요');
+		$('#div-id').attr('class', 'color-red');
+	}else if($('#id').val()!=vId){
+		$('#div-id').text('아이디 중복체크가 필요합니다.');
+		$('#div-id').attr('class', 'color-red');
+	}else if($('#pwd').val()==''){
+		$('#div-pwd').text('비밀번호를 입력하세요');
+		$('#div-pwd').attr('class', 'color-red');
+		document.getElementById("pwd").focus();
+	}else if($('#pwd').val() != $('#pwdcheck').val()){
+		$('#div-pwdcheck').text('비밀번호가 일치하지 않습니다!');
+		$('#div-pwd').attr('class', 'color-red');
+		document.getElementById("pwdcheck").focus();
+	}else
+		$('form[name=writeForm]').submit();
+});
+
 var vId;
-/*function signUpCheck(){
+function signUpCheck(){
 	if(document.getElementById("name").value==""){
 		alert("이름을 입력하세요!");
 		document.getElementById("name").focus();
@@ -28,101 +86,7 @@ var vId;
 	} else
 		document.writeForm.submit();
 }
-*/
 
-$('#loginFormBtn').click( function(){
-	$('#div_loginId').empty();
-	$('#div_loginPwd').empty();
-	if($('#loginId').val()==''){
-		$('#div_loginId').text('아이디를 입력하세요');
-		$('#div_loginId').css('color','red');
-		$('#div_loginId').css('font-size','8pt');
-		$('#div_loginId').css('font-weight','bold');
-	}else if($('#loginPwd').val()==''){//id
-		$('#div_loginPwd').text('비밀번호를 입력하세요');
-		$('#div_loginPwd').css('color','red');
-		$('#div_loginPwd').css('font-size','8pt');
-		$('#div_loginPwd').css('font-weight','bold');
-		
-	}else 
-		$('form[name=loginForm]').submit();
-} );
-
-$('#writeFormBtn').click(function(){
-	$('#div_name').empty();
-	$('#div_id').empty();
-	$('#div_pwd').empty();
-	$('#div_repwd').empty();
-	//if($('input[id=name
-	if($('#write_name').val()==''){
-		$('#div_name').text('이름을 입력하세요');
-		$('#div_name').css('color','red');
-		$('#div_name').css('font-size','8pt');
-		$('#div_name').css('font-weight','bold');
-	}else if($('#write_id').val()==''){//id
-		$('#div_id').text('아이디를 입력하세요');
-		$('#div_id').css('color','red');
-		$('#div_id').css('font-size','8pt');
-		$('#div_id').css('font-weight','bold');
-	}else if($('#write_pwd').val()==''){//pwd
-		$('#div_pwd').text('비밀번호를 입력하세요');
-		$('#div_pwd').css('color','red');
-		$('#div_pwd').css('font-size','8pt');
-		$('#div_pwd').css('font-weight','bold');
-	}else if($('#write_pwd').val() != $('#pwdcheck').val()){//repwd
-		$('#div_repwd').text('비밀번호가 다릅니다.');
-		$('#div_pwd').css('color','red');
-		$('#div_pwd').css('font-size','8pt');
-		$('#div_pwd').css('font-weight','bold');
-	}else if($('#write_id').val() != $('#check').val()){
-		$('#div_idcheck').text('중복체크 하세요');
-		$('#div_idcheck').css('color','red');
-		$('#div_idcheck').css('font-size','8pt');
-		$('#div_idcheck').css('font-weight','bold');
-	}else 
-		$('form[name=writeForm]').submit();
-	
-});
-/*$('#modifyFormBtn').click(function(){
-	$('#div_name').empty();
-	$('#div_id').empty();
-	$('#div_pwd').empty();
-	$('#div_repwd').empty();
-	if($('#modify_name').val()==''){
-		$('#div_name').text('이름을 입력하세요');
-		$('#div_name').css('color','red');
-		$('#div_name').css('font-size','8pt');
-		$('#div_name').css('font-weight','bold');
-	}else if($('#modify_pwd').val()==''){//pwd
-		$('#div_pwd').text('비밀번호를 입력하세요');
-		$('#div_pwd').css('color','red');
-		$('#div_pwd').css('font-size','8pt');
-		$('#div_pwd').css('font-weight','bold');
-	}else if($('#modify_pwd').val() != $('#modify_pwdcheck').val()){//repwd
-		$('#div_repwd').text('비밀번호가 다릅니다.');
-		$('#div_pwd').css('color','red');
-		$('#div_pwd').css('font-size','8pt');
-		$('#div_pwd').css('font-weight','bold');
-	}else 
-		$('form[name=modifyForm]').submit();
-	
-});*/
-
-$('#loginId').focusout(function(){
-	$('#div_loginId').empty();
-	$('#div_loginPwd').empty();
-	if($('#loginId').val()==''){
-		$('#div_loginId').text('아이디를 입력하세요')
-						 .css('color','red')
-		 				 .css('font-size','8pt')
-		 				 .css('font-weight','bold');
-	}else if($('#loginPwd').val()==''){//id
-		$('#div_loginPwd').text('비밀번호를 입력하세요')
-							.css('color','red')
-							.css('font-size','8pt')
-							.css('font-weight','bold');
-	}	
-});
 function updateCheck(){
 	if(document.getElementById("pwd").value==""){
 		alert("비밀번호를 입력하세요!");
@@ -135,28 +99,29 @@ function updateCheck(){
 }
 
 function idCheck(){
-	let sId = document.writeForm.id.value;
-	if(sId=="") 
-		alert("먼저 아이디를 입력하세요");
+	let id = document.writeForm.id.value;
+	if(id=="")
+		alert("Id를 입력하세요!");
 	else
-		window.open("/miniProject/member/checkId.do?id="+sId, "", "width=500 height=180 left=800 top=100");
+		window.open("checkId.do?id="+id,"",
+			"width=500 height=180 left=800 top=100");
 }
 
 function idUse(id){
-	opener.writeForm.id.value=id;
-	opener.writeForm.pwd.focus();
+	opener.document.forms[1].id.value=id;
+	opener.document.forms[1].pwd.focus();
 	opener.vId = id;
 	self.close();
 }
 
 function checkPost() {
-	window.open("/miniProject/member/checkPost.do", "", "width=550 height=400 scrollbars=yes")
+	window.open("checkPost.do", "", "width=550 height=400 scrollbars=yes")
 }
 
-function selectAddr(zipcode, addr){
-	opener.document.forms[0].zipcode.value = zipcode;
-	opener.document.forms[0].addr1.value = addr;
-	opener.document.forms[0].addr2.focus();
+function selectAddr(zipcode2, addr1){
+	opener.document.forms[1].zipcode_input.value = zipcode2;
+	opener.document.forms[1].addr1.value = addr1;
+	opener.document.forms[1].addr2.focus();
 	self.close();
 }
 

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+#table-imageboard{
+	margin:0px auto;
+	border-collapse:collapse;
+}
+#table-imageboard td{
+	padding:5px;
+}
+#table-imageboard .fieldName, .field1{
+	text-align:center;
+	width:100px;
+}
+#table-imageboard .fieldName{
+	background-color:#fafafa;
+}
+#table-imageboard img{
+	width:200px;
+}
+
+#table-imageList{
+	margin:10px auto;
+	border:0px solid #FFFFFF;
+}
+#table-imageList thead td{
+	border:0px solid #FFFFFF;
+	text-align:right;
+	padding-bottom:7px;
+}
+#table-imageList tbody tr:first-child{
+	background-color:#FAFAFA;
+}
+
+#table-imageList .check{
+	border-right:0px solid #FFFFFF;
+	text-align:right;
+	padding-left:10px;
+	padding-right:0px;
+	margin-right:0px;
+}
+#table-imageList .number{
+	border-left:0px solid #FFFFFF;
+	width:50px;
+	padding-right:5px;
+	padding-left:0px;
+	margin-left:0px;
+}

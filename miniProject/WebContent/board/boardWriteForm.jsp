@@ -34,7 +34,7 @@
 <body>
 
 <h2>글쓰기</h2>
-<form action="boardWrite.do" id="boardWriteForm" name="boardWriteForm">
+<form name="boardWriteForm" method="post" action="boardWrite.do">
 <input type="hidden" name="id" value="<%=session.getAttribute("memId") %>">
 <input type="hidden" name="name" value="<%=session.getAttribute("memName") %>">
 <input type="hidden" name="email" value="<%=session.getAttribute("memEmail") %>">
@@ -53,7 +53,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" align="center">
-			<input type="button" value="글쓰기" onclick="checkBoardWriteForm()">
+			<input type="button" id="boardBtn" value="글쓰기"">
 			<input type="reset" value="다시작성">
 		</td>
 	</tr>
@@ -62,18 +62,7 @@
 </form>
 
 </body>
-<script type="text/javascript">
-	function checkBoardWriteForm(){
-		// 유효성 검사 (제목, 내용)
-		if(document.forms[0].subject.value==""){
-			alert("제목을 입력해주세요.");
-		}else if(document.forms[0].content.value==""){
-			alert("내용을 입력해주세요.");
-		}else{
-			document.forms[0].submit();
-		}
-	}
-
-</script>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/board.js"></script>
 
 </html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="imageboardSQL">
+	<insert id="imageboardWrite" parameterType="imageboard.bean.ImageboardDTO">
+		INSERT INTO imageboard values(seq_imageboard.nextval
+									, #{imageId}
+									, #{imageId}
+									, #{imageId}
+									, #{imageId}
+									, #{imageId}
+									, #{imageId}
+										sysdate)
+	</insert>
+	<select id="imageboardList" parameterType="java.util.Map" resultType="imageboard.bean.ImageboardDTO">
+		<![CDATA[
+			SELECT * FROM 
+        	(SELECT rownum rn, tt.* from
+        	(SELECT * FROM board ORDER BY ref DESC) tt) 
+        	WHERE rn >=  #{startNum}  AND rn <=  #{endNum}
+		]]>
+	</select>
+	<select id="imageboardView" parameterType="int" resultType="imageboard.bean.ImageboardDTO">
+			SELECT * FROM imageboard where seq = #{seq}
+	</select>
+</mapper>

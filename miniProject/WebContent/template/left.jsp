@@ -5,7 +5,6 @@
 <div id="login">
 	<c:if test="${memId == null }">
 		<jsp:include page="/member/loginForm.jsp"/>
-		<jsp:include page="/member/loginFail.jsp"/>
 	</c:if>
 	<c:if test = "${memId != null }">
 		${memName }님<br>환영합니다!

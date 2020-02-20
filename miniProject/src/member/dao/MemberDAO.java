@@ -21,7 +21,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import board.bean.BoardDTO;
 import member.bean.AddrDTO;
 import member.bean.MemberDTO;
 
@@ -31,13 +30,15 @@ public class MemberDAO {
 	private SqlSessionFactory sqlSessionFactory;
 	
 	public MemberDAO() {
+		Reader reader;
 		try {
-			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+			reader = Resources.getResourceAsReader("mybatis-config.xml");
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public static MemberDAO getInstance() {
 		if(instance!=null) return instance;
@@ -46,110 +47,96 @@ public class MemberDAO {
 		}
 		return instance;
 	}
-	/*
-	 * 
-	 * public int insert(MemberDTO memberDTO) { String sql =
-	 * "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)"; int result = 0;
-	 * try { conn = ds.getConnection(); pstmt = conn.prepareStatement(sql); int
-	 * index = 1; pstmt.setString(index++, memberDTO.getName());
-	 * pstmt.setString(index++, memberDTO.getId()); pstmt.setString(index++,
-	 * memberDTO.getPwd()); pstmt.setString(index++, memberDTO.getGender());
-	 * pstmt.setString(index++, memberDTO.getEmail1()); pstmt.setString(index++,
-	 * memberDTO.getEmail2()); pstmt.setString(index++, memberDTO.getTel1());
-	 * pstmt.setString(index++, memberDTO.getTel2()); pstmt.setString(index++,
-	 * memberDTO.getTel3()); pstmt.setString(index++, memberDTO.getZipcode());
-	 * pstmt.setString(index++, memberDTO.getAddr1()); pstmt.setString(index++,
-	 * memberDTO.getAddr2()); result = pstmt.executeUpdate();
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace(); } finally { disconnect(); }
-	 * return result; }
-	 * 
-	 * public boolean update(MemberDTO memberDTO) { String sql =
-	 * "Update member SET name=?, pwd=?, gender=?, email1=?, email2=?, tel1=?, tel2=?, tel3=?, zipcode=?, addr1=?, addr2=?, logtime=sysdate"
-	 * + " WHERE id = ?"; int result = 0; try { conn = ds.getConnection(); pstmt =
-	 * conn.prepareStatement(sql); int index = 1; pstmt.setString(index++,
-	 * memberDTO.getName()); pstmt.setString(index++, memberDTO.getPwd());
-	 * pstmt.setString(index++, memberDTO.getGender()); pstmt.setString(index++,
-	 * memberDTO.getEmail1()); pstmt.setString(index++, memberDTO.getEmail2());
-	 * pstmt.setString(index++, memberDTO.getTel1()); pstmt.setString(index++,
-	 * memberDTO.getTel2()); pstmt.setString(index++, memberDTO.getTel3());
-	 * pstmt.setString(index++, memberDTO.getZipcode()); pstmt.setString(index++,
-	 * memberDTO.getAddr1()); pstmt.setString(index++, memberDTO.getAddr2());
-	 * pstmt.setString(index++, memberDTO.getId()); result = pstmt.executeUpdate();
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace(); } finally { disconnect(); }
-	 * return result == 1 ? true : false; }
-	 * 
-	 * public String getMemberName(String id, String pwd) { String memberName=null;
-	 * String sql = "SELECT name FROM member WHERE id=? AND pwd=?"; try { conn =
-	 * ds.getConnection(); pstmt = conn.prepareStatement(sql); pstmt.setString(1,
-	 * id); pstmt.setString(2, pwd); rs = pstmt.executeQuery(); if(rs.next()) {
-	 * memberName = rs.getString(1); System.out.println(memberName); } } catch
-	 * (SQLException e) { e.printStackTrace(); } finally { disconnect(); } return
-	 * memberName; }
-	 * 
-	 * 
-	 * 
-	 * public List<String> getSido(){ String sql =
-	 * "select sido, max(zipcode) as zipcode from newzipcode group by sido order by TO_NUMBER(zipcode, '99999')"
-	 * ; List<String> list = new ArrayList<String>(); try { conn =
-	 * ds.getConnection(); pstmt = conn.prepareStatement(sql); rs =
-	 * pstmt.executeQuery(); while(rs.next()) { list.add(rs.getString(1)); } } catch
-	 * (SQLException e) { e.printStackTrace(); } finally { disconnect(); } return
-	 * list; }
-	 * 
-	 * public List<AddrDTO> getAddr(String sido, String sigungu, String roadname){
-	 * String sql =
-	 * "SELECT to_char(zipcode, '00000') as zipcode, sido, sigungu, yubmyundong, ri, roadname, buildingname FROM newzipcode"
-	 * + " where sido=? and nvl(sigungu,'0') like ? and roadname like ?";
-	 * List<AddrDTO> list = new ArrayList<AddrDTO>(); try { conn =
-	 * ds.getConnection(); pstmt = conn.prepareStatement(sql); pstmt.setString(1,
-	 * sido); pstmt.setString(2, "%"+sigungu+"%"); pstmt.setString(3,
-	 * "%"+roadname+"%"); rs = pstmt.executeQuery(); while(rs.next()) { AddrDTO
-	 * addrDTO = new AddrDTO(rs.getString("zipcode"), rs.getString("sido"),
-	 * rs.getString("sigungu"), rs.getString("yubmyundong"), rs.getString("ri"),
-	 * rs.getString("roadname"), rs.getString("buildingname")); list.add(addrDTO); }
-	 * } catch (SQLException e) { e.printStackTrace(); } finally { disconnect(); }
-	 * return list; }
-	 * 
-	 * public boolean checkId(String id) { String sql =
-	 * "SELECT id FROM member WHERE id=?"; boolean result = false; try { conn =
-	 * ds.getConnection(); pstmt = conn.prepareStatement(sql); pstmt.setString(1,
-	 * id); rs = pstmt.executeQuery(); if(rs.next()) result = true; } catch
-	 * (SQLException e) { e.printStackTrace(); } finally { disconnect(); } return
-	 * result; }
-	 * 
-	 * 
-	 * public List<MemberDTO> selectAll(){ String sql = "SELECT * FROM memeber";
-	 * List<MemberDTO> list = new ArrayList<MemberDTO>(); try { conn =
-	 * ds.getConnection(); pstmt = conn.prepareStatement(sql); rs =
-	 * pstmt.executeQuery(); while(rs.next()) {
-	 * 
-	 * MemberDTO memberDTO = new MemberDTO( rs.getString("name"),
-	 * rs.getString("id"), rs.getString("pwd"), rs.getString("gender"),
-	 * rs.getString("email1"), rs.getString("email2"), rs.getString("tel1"),
-	 * rs.getString("tel2"), rs.getString("tel3"), rs.getString("zipcode"),
-	 * rs.getString("addr1"), rs.getString("addr2"), rs.getDate("name"));
-	 * list.add(memberDTO); } } catch (SQLException e) { e.printStackTrace(); }
-	 * finally { disconnect(); } return list; }
-	 */
-	  
-	  public MemberDTO getMember(String id) {
-		  SqlSession sqlSession = sqlSessionFactory.openSession();
-		  MemberDTO memberDTO = sqlSession.selectOne("memberSQL.getMember" , id);
-		  sqlSession.close();
-		  return memberDTO;
-	  }
-	  
-	  public MemberDTO getMemberDTO(String id, String pwd) {
+	
+	public boolean insert(MemberDTO memberDTO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = sqlSession.insert("memberSQL.insert", memberDTO);
+		sqlSession.commit();
+		sqlSession.close();
+		return result > 0 ? true : false;
+	}
+	
+	public boolean update(MemberDTO memberDTO) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = sqlSession.update("memberSQL.update", memberDTO);
+		sqlSession.commit();
+		sqlSession.close();
+		return result == 1 ? true : false;
+	}
+	
+	public String getMemberName(String id, String pwd) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("pwd", pwd);
-		MemberDTO memberDTO = sqlSession.selectOne("memberSQL.getMemberDTO" , map);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		MemberDTO memberDTO = sqlSession.selectOne("memberSQL.login", map);
 		sqlSession.close();
-		return memberDTO; 
-	  }
-	 
+		
+		if(memberDTO != null) {
+			return memberDTO.getName();
+		}
+		else return null;
+	}
+	
+	public MemberDTO getMember(String id) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		MemberDTO memberDTO = sqlSession.selectOne("memberSQL.select", id);
+		sqlSession.close();
+		
+		return memberDTO;
+	}
+	
+	public List<String> getSido(){
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<String> list = sqlSession.selectList("memberSQL.getSido");
+		sqlSession.close();
+		
+		return list;
+	}
+	
+	public List<AddrDTO> getAddr(String sido, String sigungu, String roadname){
+		String sigungu_n = "%" + sigungu + "%";
+		String roadname_n = "%" + roadname.split(" ")[0] + "%";
+		
+		String buildingname;
+		if(roadname.split(" ").length > 1) {
+			buildingname = "%" + roadname.split(" ")[1] + "%";
+		}else {
+			buildingname = "%%";
+		}
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("sido", sido);
+		map.put("sigungu", sigungu_n);
+		map.put("roadname", roadname_n);
+		map.put("buildingname", buildingname);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<AddrDTO> list = sqlSession.selectList("memberSQL.getAddr", map);
+		sqlSession.close();
+		
+		return list;
+	}
+	
+	public boolean checkId(String id) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = sqlSession.selectOne("memberSQL.checkId", id);
+		sqlSession.close();
+		
+		return result > 0 ? true:false;
+	}
+	
+	
+	public List<MemberDTO> selectAll(){
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		list = sqlSession.selectList("memberSQL.selectAll");
+		sqlSession.close();
+		return list;
+	}
+	
 	
 }
+

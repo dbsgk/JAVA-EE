@@ -37,6 +37,10 @@
 		</list>
 	</section>
 	<section name="ZipFileImportWizard">
+		<item key="WizardZipFileResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
+		<list key="WizardZipFileResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\bitcamp\Downloads\miniProject.zip"/>
+		</list>
 	</section>
 	<section name="FileSystemImportWizard">
 	</section>

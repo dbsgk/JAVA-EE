@@ -37,7 +37,7 @@
 <script type="text/javascript">
 $('#imageUpload').click(function(){
 	// 유효성 검사 (제목, 내용)
-	if(document.imageboardForm.imageId.value=='img_'){
+	if($('#imageId').val()=='img_'){
 		alert("상품 코드가 올바르지 않습니다.");
 	}else if(document.imageboardForm.imageName.value==''){
 		alert("상품명을 입력해주세요.");

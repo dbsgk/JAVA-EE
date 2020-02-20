@@ -11,6 +11,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import imageboard.bean.ImageboardDTO;
+import imageboard.bean.ImageboardPaging;
 import imageboard.dao.ImageboardDAO;
 
 public class ImageboardWriteAction implements CommandProcess {
@@ -47,10 +48,27 @@ public class ImageboardWriteAction implements CommandProcess {
 		ImageboardDTO imageboardDTO = new ImageboardDTO(imageId, imageName, imagePrice, imageQty, imageContent, image1);
 		
 		if(imageboardDAO.insert(imageboardDTO)) {
-			request.setAttribute("display", "/imageboard/imageboardList.jsp?pg=1");
+			request.setAttribute("display", "/imageboard/imageboardList.jsp?");
 			
 			List<ImageboardDTO> list = imageboardDAO.getList(1, 3);
 			request.setAttribute("list", list);
+			
+			ImageboardPaging imageboardPaging = new ImageboardPaging();
+			int totalA = imageboardDAO.getBoardTotalA();
+
+			int pg = 1;
+			int articlesPerPage = 3;
+			int endNum = pg * articlesPerPage;
+			int startNum = endNum - articlesPerPage + 1;
+			
+			imageboardPaging.setCurrentPage(pg);
+			imageboardPaging.setPageBlock(3);
+			imageboardPaging.setPageSize(articlesPerPage);
+			imageboardPaging.setTotalA(totalA);
+			imageboardPaging.makePagingHTML();
+				
+			request.setAttribute("imageboardPaging", imageboardPaging.getPagingHTML().toString());
+			request.setAttribute("pg", pg);
 			
 		}else{
 			request.setAttribute("display", "/imageboard/imageboardFail.jsp");

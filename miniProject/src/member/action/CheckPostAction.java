@@ -1,5 +1,6 @@
 package member.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,40 +16,28 @@ public class CheckPostAction implements CommandProcess {
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		//데이터
-		//request.setCharacterEncoding("utf-8"); 이미 Servlet에서 한글처리 하고 와서 여기서 안해도 됨.
-		String sido = request.getParameter("sido");
-		String sigungu = request.getParameter("sigungu");
-		String roadname = request.getParameter("roadname");
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		List<String> list = memberDAO.getSido();
 
-		System.out.println(sido+", "+sigungu+", "+roadname);
+		//request.setCharacterEncoding("utf-8"); 서버에서 이미 한글 인코딩 처리를 한 뒤 넘어오므로 여기서는 안 해도 됨
+
+		String sido = request.getParameter("sido")!=null ? request.getParameter("sido") : "";
+		String sigungu = request.getParameter("sigungu")!=null ? request.getParameter("sigungu") : "";
+		String roadname = request.getParameter("roadname")!=null ? request.getParameter("roadname") : "";
 
 		//DB
-		MemberDAO memberDAO = MemberDAO.getInstance();
-		List<AddrDTO> addrList = null;
-		if(sido!=null && roadname!=null){//값이 안들어올 때 
-			if(sido!="" && roadname!=""){//데이터 입력안하고 누를 때
-				addrList = memberDAO.getAddr(sido,sigungu,roadname);
-			}
+		List<AddrDTO> addrList;
+		if((sido+sigungu+roadname).length()==0) {
+			addrList = new ArrayList<AddrDTO>();
+		}else {
+			addrList = memberDAO.getAddr(sido, sigungu, roadname);
 		}
-
-
-		/*
-		 * MemberDAO memberDAO = MemberDAO.getInstance(); List<String> list =
-		 * memberDAO.getSido();
-		 * 
-		 * request.setCharacterEncoding("utf-8");
-		 * 
-		 * String sido = request.getParameter("sido")!=null ?
-		 * request.getParameter("sido") : ""; String sigungu =
-		 * request.getParameter("sigungu")!=null ? request.getParameter("sigungu") : "";
-		 * String roadname = request.getParameter("roadname")!=null ?
-		 * request.getParameter("roadname") : ""; String buldingname =
-		 * request.getParameter("buldingname")!=null ?
-		 * request.getParameter("buldingname") : "";
-		 * 
-		 * List<AddrDTO> addrList = memberDAO.getAddr(sido, sigungu, roadname);
-		 */
+		
+		//응답
+		request.setAttribute("sidoList", list);
 		request.setAttribute("addrList", addrList);
+		request.setAttribute("sido", sido);
+		
 		return "/member/checkPost.jsp";
 	}
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- 클라이언트 -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<input type="button" value="simple.jsp" onclick="load('simple.jsp')">
+</body>
+<script type="text/javascript">
+var xhr;
+function load(url){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = viewMessage;/* viewMessage 라는 함수를 수행해라 */
+	xhr.open("GET", url, true);/* get,post방식 	url   동기,비동기방식 */
+	xhr.send(null);/* 보내주기 버튼이라고 생각하면 됨. */
+}
+
+function viewMessage(){
+	if(xhr.readyState == 4){
+		if(xhr.status == 200){
+			//alert(xhr.responseText); alert는 모든 시스템이 멈추게 되니까 쓰지말고 console을 실행해라.
+			console.log(xhr.responseText);
+		}else{
+			alert("실패: "+xhr.status);
+		}
+	}
+}
+</script>
+</html>

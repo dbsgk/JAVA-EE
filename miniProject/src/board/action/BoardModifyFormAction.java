@@ -5,23 +5,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.control.CommandProcess;
 
+import board.bean.BoardDTO;
+import board.dao.BoardDAO;
+
 public class BoardModifyFormAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		//데이터
+		
+		BoardDAO boardDAO = BoardDAO.getInstance();
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		int pg = Integer.parseInt(request.getParameter("pg"));
-		String subject = request.getParameter("subject");
-		String content = request.getParameter("content");
 		
-		//응답
-		request.setAttribute("pg", pg);
+		BoardDTO boardDTO = boardDAO.selectOne(seq, false);
+		
 		request.setAttribute("seq", seq);
-		request.setAttribute("subject", subject);
-		request.setAttribute("content", content);
+		request.setAttribute("pg", pg);
+		request.setAttribute("boardDTO", boardDTO);
 		request.setAttribute("display", "/board/boardModifyForm.jsp");
-
 		return "/main/index.jsp";
 	}
 

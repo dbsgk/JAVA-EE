@@ -1,58 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
-<style type="text/css">
-.contents {
-	white-space: pre-line;
-	word-break: break-all;
-	width: 450px;
-}
-</style>
+<h2 class="h-center">글 보기</h2>
+<form name="modifyForm" action="boardModifyForm.do" method="post">
+<input type="hidden" name="seq" value="${param.seq }">
+<input type="hidden" name="pg" value="${param.pg }">
 
-<form name="boardViewForm">
-<input type="hidden" name="seq" value="${boardDTO.seq }">
-<input type="hidden" name="pg" value="${pg }">
-<input type="hidden"  name="subject" value="${boardDTO.subject }">
-<input type="hidden" name="content" value="${boardDTO.content }">
-
-<table  border="1" cellpadding="5" frame="hsides" rules="rows">
+<table id="table-boardView">
 	<tr>
-		<td colspan="3">
-			<h3>${boardDTO.subject }</h3>
+		<td class="fieldName">글 번호</td>
+		<td class="h-center" style="width:50px;">${boardDTO.seq } </td> 
+		<td class="fieldName">작성일</td>
+		<td class="h-center" style="width:170px;"><fmt:formatDate value="${boardDTO.logtime }" pattern="YYYY.MM.dd" /> </td>
+		<td class="fieldName">작성자</td>
+		<td class="h-center">${boardDTO.name } </td>
+		<td class="fieldName">조회수</td>
+		<td class="h-center">${boardDTO.hit } </td>
+	</tr>
+	<tr>
+		<td class="fieldName">제 목</td>
+		<td colspan="7" class="td-subject">${boardDTO.subject }</td>
+	</tr>
+	<tr>
+		<td class="fieldName">내 용</td>
+		<td colspan="7" width="500px" class="content">
+			<div id="pp">${boardDTO.content }</div>
+			<%-- <pre id="pp">${boardDTO.content }</pre> --%>
 		</td>
 	</tr>
 	<tr>
-		<td width="150">글번호 : ${boardDTO.seq }</td>
-		<td width="150">작성자 : ${boardDTO.id }</td>
-		<td width="150">조회수 : ${boardDTO.hit }</td>
-	</tr>
-	<tr>
-		<td colspan="3" height="200" valign="top">
-			<pre class="contents">${boardDTO.content }</pre>
+		<td class="h-center" colspan="8">
+			<c:if test = "${memId == boardDTO.id }">
+				<input type="button" id="modify" value="수정" onclick="boardUpdate()">
+				<input type="button" id="delete" value="삭제" onclick="checkBoardDelete(${param.pg }, ${param.seq })">
+			</c:if>
+			<input type="button" value="답글" onclick="location.href='boardReplyForm.do?pg=${param.pg }&pseq=${param.seq }'">
+			<input type="button" value="돌아가기" onclick="location.href='boardList.do?pg=${param.pg }'">
 		</td>
 	</tr>
+
 </table>
-<input type="button" value="목록" onclick="location.href='boardList.do?pg=${pg}'">
-<input type="button" value="답글" onclick="location.href='boardReplyForm.do?seq=${seq}&pg=${pg }'">
-<c:if test="${memId == boardDTO.id }">
-	<input type="button" value="글수정" onclick="mode(1)">
-	<input type="button" value="글삭제" onclick="mode(2)">
-</c:if>
 </form>
-
+</body>
 <script type="text/javascript">
-function mode(num){
-	if(num==1){
-		document.boardViewForm.method = 'post';
-		document.boardViewForm.action = 'boardModifyForm.do';
-		document.boardViewForm.submit();
-		
-	}else if(num==2){
-		document.boardViewForm.method = 'post';
-		//document.boardViewForm.action = 'boardDelete.jsp';
-		document.boardViewForm.submit();
-	}
+function boardUpdate(){
+	document.modifyForm.submit();
+}
+
+function checkBoardDelete(pg, seq){
+	location.href="boardDelete.do?pg=" + pg + "&seq=" + seq;
 }
 </script>
+
 </html>
