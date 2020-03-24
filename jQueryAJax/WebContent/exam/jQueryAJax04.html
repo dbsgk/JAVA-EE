@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="">
+	<label>이름을 입력하시오</label>
+	<input type="text" name="username" class="user">
+	<input type="button" id="submit" value="입력">
+</form>
+<br><br>
+<div id="message"></div>
+</body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.getScript('jQueryAJax04.js');//파일호출
+	
+	$('#submit').click(function () {
+		var data = setName($('.user').val());
+		$('#message').html(data);
+	});
+});
+</script>
+</html>

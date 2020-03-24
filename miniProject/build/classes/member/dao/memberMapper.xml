@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberSQL">
+	<!-- <resultMap type="user" id="userResult">
+		<result property="name" column="NAME"/>
+		<result property="id" column="ID"/>
+		<result property="pwd" column="PWD"/>
+	</resultMap> -->
+	
+	<insert id="insert" parameterType="member.bean.MemberDTO">
+		INSERT INTO member(name, id, pwd, gender, email1, email2, tel1, tel2, tel3, zipcode, addr1, addr2, logtime) 
+		VALUES(#{name},#{id},#{pwd},#{gender},#{email1},#{email2},#{tel1},#{tel2},#{tel3},#{zipcode},#{addr1},#{addr2},sysdate)
+	</insert>
+	
+	<update id="update" parameterType="member.bean.MemberDTO">
+		Update member SET 
+			name=#{name}, pwd=#{pwd}, 
+			gender=#{gender}, email1=#{email1}, email2=#{email2}, 
+			tel1=#{tel1}, tel2=#{tel2}, tel3=#{tel3}, 
+			zipcode=#{zipcode}, addr1=#{addr1}, addr2=#{addr2}, 
+			logtime=sysdate 
+			WHERE id = #{id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE member WHERE id= #{id}
+	</delete>
+	<select id="select" resultType="member.bean.MemberDTO" parameterType="String">
+		SELECT * FROM member WHERE id = #{id}
+	</select>
+	<select id="selectAll" resultType="member.bean.MemberDTO">
+		SELECT * FROM member
+	</select>
+	<select id="checkId" resultType="Integer" parameterType="String">
+		SELECT COUNT(*) FROM member WHERE id = #{id}
+	</select>
+	<select id="login" resultType="member.bean.MemberDTO" parameterType="java.util.Map">
+		SELECT * FROM member WHERE id = #{id} AND pwd = #{pwd }
+	</select>
+	
+	<select id="getSido" resultType="String">
+		select sido, max(zipcode) as zipcode from newzipcode group by sido order by TO_NUMBER(zipcode, '99999')
+	</select>
+	<select id="getAddr" resultType="member.bean.AddrDTO" parameterType="java.util.Map">
+		SELECT to_char(zipcode, '00000') as zipcode, sido, sigungu, yubmyundong, ri, roadname, buildingname FROM newzipcode
+			where sido=#{sido } and nvl(sigungu,'0') like #{sigungu } and roadname like #{roadname }
+	</select>
+	
+	
+	
+	
+</mapper>

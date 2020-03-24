@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+단 
+<input type="text" id="dan">
+<input type="button" value="입력" onclick="sendData()">
+<div id="Div" style="visibility: hidden;" ></div>
+</body>
+<script type="text/javascript">
+var xhr = null;
+function sendData(){
+	alert("sendData");
+	var dan = document.getElementById("dan").value;
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = getData;
+	xhr.open("POST", "gugudan.jsp", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//
+	xhr.send("dan"+dan);
+}
+function getData() {
+	alert("getData");
+	let print_dan = xhr.responseText;
+	//document.getElementById("Div").style.visibility= visible;
+	document.getElementById("Div").innerHTML = "<strong>"+print_dan+"</strong>";
+}
+</script>
+</html>

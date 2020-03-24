@@ -1,0 +1,42 @@
+<!-- 클라이언트(서버인 hello.jsp에 요청) -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="" method="post" name="inputForm">
+<input type="text" name="name">
+<input type="button" value="입력" onclick="helloToServer2()" /><!-- 웹표준에서는 input태그 막아줘야한다. -->
+</form>
+</body>
+<script type="text/javascript">
+let xhr = null;
+function helloToServer(){
+	
+	let name = encodeURIComponent(document.inputForm.name.value);
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = helloFromServer;
+	xhr.open("GET", "hello.jsp?name="+name, true);
+	xhr.send(null);
+}
+function helloToServer2(){
+	
+	let name = encodeURIComponent(document.inputForm.name.value);
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = helloFromServer;
+	xhr.open("POST", "./hello.jsp", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//
+	xhr.send("name="+name);
+}
+function helloFromServer(){
+	if(xhr.readyState == 4){
+		if(xhr.status == 200){
+			alert(xhr.responseText);
+		}
+	}
+}
+
+</script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="" name="form1">
+	<input type="checkbox" name="chk" value="1" class="cb">농구
+	<input type="checkbox" name="chk" value="2" class="cb">낚시
+	<input type="checkbox" name="chk" value="3" class="cb">여행
+	<input type="checkbox" name="chk" value="4" class="cb">바둑
+	<input type="checkbox" name="chk" value="5" class="cb">게임
+	<input type="button" value="선택된 취미의 개수?" onclick="go()">
+	<input type="button" value="선택된 취미의 개수?" id="go2">
+</form><br><br>
+
+<div id="result"></div>
+<div id="result2"></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+function go() {
+	/* let len = document.form1.chk.length;//form1에 있는 chk의 개수를 지역변수len에 담음.
+	//alert(len);
+	
+	let count=0;
+	for(let i=0; i<len; i++){
+		if(document.form1.chk[i].checked)count++;
+	}
+	alert("개수= "+count); */
+	
+	let chk = document.getElementsByName("chk");
+	//alert(chk.length);
+	
+	let count=0;
+	for(let i=0; i<chk.length; i++){
+		if(chk[i].checked) count++;
+	}
+	
+	document.getElementById('result').innerHTML = count+"개 선택";
+}
+</script>
+<script type="text/javascript">
+$('#go2').click(function() {
+	$('#result2').html($('.cb:checked').length+"개 선택").css('color', 'red');
+});
+</script>
+</html>

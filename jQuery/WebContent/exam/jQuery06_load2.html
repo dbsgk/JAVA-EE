@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.container{
+	position: absolute;
+	top: 10px;
+	left: 100px;
+	height: 300px;
+	width: 600px;
+	border: 1px dotted red;
+	font-size: 10px;
+}
+</style>
+</head>
+<body>
+<a id="welcome" href="javascript:void(0)">처음화면</a><br><br>
+<a id="sample" href="#">샘플화면</a><br><br>
+
+<div id="result" class="container" style="font-size: 20px;"></div>
+<div></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#result').text('왼쪽 메뉴를 선택하시오');
+	
+	$('#welcome').click(function() {
+		$('#result').text('Welcome jQuery');
+		$('#result').css('font-weight', 'bold');
+		$('#result').css('font-size', '50pt');
+		$('#result').css('color', 'red');
+	});
+	
+	$('#sample').click(function() {
+		$('#result').removeAttr('style');// result는 id, class, style 3개의 속성을 가지고 있는데, 그 중에 (style)속성을 제거하겠다.
+										// 속성은 인라인 속성(해당<div> 태그 안에 있는)이 제일 먼저 먹힌다. 밖에 <style>뭐 이렇게 속성 주는 것보다.
+		$('#result').load('sample.txt');
+	});
+});
+</script>
+</html>

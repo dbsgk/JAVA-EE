@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form id="loginForm">
+<table border="1" cellpdding="3" cellspacing="0">
+<tr>
+	<td align="center">아이디</td>
+	<td>
+		<input type="text" name="id" id="id" size="25">
+		<div id="idDiv">
+		</div> 
+	</td>
+</tr>
+<tr>
+	<td align="center">비밀번호</td>
+	<td>
+		<input type="password" name="pwd" id="pwd" size="30">
+		<div id="pwdDiv">
+		</div> 
+	</td>
+</tr>
+<tr>
+	<td align="center" colspan="2">
+		<input type="button" id="loginBtn" value="로그인">
+		<div id="loginResult">
+		</div> 
+	</td>
+</tr>
+</table>
+</form>
+</body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id').keyup(function() {//키보드 눌렀다가 떼면
+		$('#loginResult').empty();
+	});
+	$('#loginBtn').click(function() {
+		var id = $('#id').val();
+		var pwd = $('input[name=pwd]').val();
+		
+		$('#idDiv').empty();
+		$('#pwdDiv').empty();
+		
+		if(id==''){
+			$('#idDiv').text('아이디를 입력하세요').css('color', 'red').css('font-size', '8pt');
+		}else if(pwd==''){
+			$('#pwdDiv').text('비밀번호를 입력하세요').css('color', 'red').css('font-size', '8pt');
+		}else{
+		/* 	$.getJSON('jQueryAJax08_json.jsp', $('#loginForm').serialize(), function(data) {
+				//alert(JSON.stringify(data));
+				var loginResult = JSON.stringify(data);
+				$.each(data,function(key, item){
+					if(item == 'ok'){
+						$('#loginResult').text('로그인성공').css('color', 'blue').css('font-size', '10pt');
+					}else if(item == 'fail'){
+						$('#loginResult').text('로그인실패').css('color', 'blue').css('font-size', '10pt');
+						
+						$('#loginForm').each(function(){
+							this.reset();
+							$('#id').focus();
+						});
+					}
+				});
+			}); */
+			///////////////////////////////////////////
+			/* $.ajax({
+				type: "POST",
+				url: "jQueryAJax08_json.jsp",
+				data: $('#loginForm').serialize(),
+				dataType: 'text',
+				success: function(data) {
+					//alert(data);
+					if(data.trim()=='ok'){
+						$('#loginResult').text('로그인성공').css('color', 'blue').css('font-size', '10pt');
+					}else if(data.trim()=='fail'){
+						$('#loginResult').text('로그인실패').css('color', 'blue').css('font-size', '10pt');
+						
+						$('#loginForm').each(function(){
+							this.reset();
+							$('#id').focus();
+						});
+					}
+				}//success
+			}); */
+			$.ajax({
+			type: "POST",
+			url: "jQueryAJax08_json.jsp",
+			data: $('#loginForm').serialize(),
+			dataType: 'json',
+			success: function(data) {
+				alert(JSON.stringify(data));
+				if(data.result=='ok'){
+					$('#loginResult').text('로그인성공').css('color', 'blue').css('font-size', '10pt');
+				}else if(data.result=='fail'){
+					$('#loginResult').text('로그인실패').css('color', 'blue').css('font-size', '10pt');
+					
+					$('#loginForm').each(function(){
+						this.reset();
+						$('#id').focus();
+					});
+				}
+			}//success
+		});
+			/* $.getJSON('jQueryAJax08_json.jsp', $('#loginForm').serialize(), function(data) {
+				alert('11');
+				if(data.result=='ok'){
+					$('#loginResult').text('로그인 성공').css('color', 'blue');
+				}else if(data.result=='fail'){
+					$('#loginResult').text('로그인 실패').css('color', 'blue');
+					
+					$('#loginForm')[0].reset();
+					$('#id').focus();
+				}
+			}); */
+			
+		}//else
+	});
+});
+</script>
+</html>

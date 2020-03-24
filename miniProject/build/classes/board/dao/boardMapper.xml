@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardSQL">
+	<!-- <resultMap type="user" id="userResult">
+		<result property="name" column="NAME"/>
+		<result property="id" column="ID"/>
+		<result property="pwd" column="PWD"/>
+	</resultMap> -->
+	
+	<insert id="insert" parameterType="board.bean.BoardDTO">
+		INSERT INTO board(id, name, email, subject, content, seq, ref) VALUES(#{id},#{name},#{email},#{subject},#{content},seq_board.nextval,seq_board.currval)
+	</insert>
+	<insert id="insertMap" parameterType="java.util.Map">
+		INSERT INTO board(
+			<foreach item="field" collection="fields" separator=",">${field}</foreach>
+			, seq) 
+		VALUES
+			<foreach item="value" collection="values" open="(" separator=",">#{value}</foreach>
+			, seq_board.nextval)
+	</insert>
+	
+	<!-- 글 순서 재조정 -->
+	<update id="boardReply1" parameterType="board.bean.BoardDTO">
+		<![CDATA[
+		UPDATE board SET step = step + 1 WHERE ref = #{ref} and step > #{step}
+		]]>
+	</update>
+	<!-- 답글 수 업데이트 -->
+	<update id="boardReply2" parameterType="Integer">
+		UPDATE board SET reply = reply + 1 WHERE seq = #{pseq}
+	</update>
+	
+	
+	<select id="getList" parameterType="java.util.Map" resultType="board.bean.BoardDTO">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT rownum rn, tt.* from 
+				(SELECT * FROM board ORDER BY ref DESC, step asc)
+			 tt) 
+		WHERE rn >= #{startNum} AND rn <= #{endNum}
+		]]>
+	</select>
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM board
+	</select>
+	<select id="selectOne" parameterType="Integer" resultType="board.bean.BoardDTO">
+		SELECT * FROM board WHERE seq = #{seq}
+	</select>
+	<update id="updateHit" parameterType="int">
+		UPDATE board SET hit=hit+1 WHERE seq = #{seq}
+	</update>
+	<update id="update" parameterType="board.bean.BoardDTO">
+		UPDATE board SET subject=#{subject}, content=#{content}, logtime=sysdate WHERE seq=#{seq}
+	</update>
+	
+	<update id="updateReply" parameterType="Integer">
+		UPDATE board SET reply = reply - 1 WHERE seq = 
+			(SELECT pseq FROM board WHERE seq = #{seq})
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE board WHERE seq= #{seq}
+	</delete>
+	<update id="updateReplyName" parameterType="Integer">
+	<![CDATA[
+		UPDATE board SET subject = '<span class="span-deleted">[원글이 삭제된 답글]</span>' || subject WHERE pseq = #{seq}
+	]]> 
+	</update>
+	
+	<select id="boardSearch" resultType="board" parameterType="board.bean.BoardDTO">
+		SELECT * FROM board WHERE name LIKE #{name} AND id LIKE #{id}
+	</select>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="imageboardSQL">
+	
+	<insert id="insert" parameterType="imageboard.bean.ImageboardDTO">
+		INSERT INTO imageboard(seq, imageId, imageName, imagePrice, imageQty, imageContent, image1, logtime)
+			VALUES(seq_imageboard.nextval,#{imageId},#{imageName},#{imagePrice},#{imageQty},#{imageContent},#{image1},sysdate)
+	</insert>
+	<update id="update" parameterType="imageboard.bean.ImageboardDTO">
+		UPDATE imageboard SET 
+			imageId=#{imageId}, imageName=#{imageName}, imagePrice=#{imagePrice}, imageQty=#{imageQty}, imageContent=#{imageContent}, image1=#{image1}, logtime=sysdate
+		WHERE seq=#{seq}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE imageboard WHERE seq=#{seq}
+	</delete>
+	<delete id="deleteMap" parameterType="java.util.Map">
+		DELETE imageboard WHERE seq in 
+		<foreach item="seq" collection="seqs" separator="," open="(" close=")">#{seq}</foreach>
+	</delete>
+
+	
+	<select id="getList" parameterType="java.util.Map" resultType="imageboard.bean.ImageboardDTO">
+		<![CDATA[
+		SELECT * FROM (SELECT rownum rn, tt.* from (SELECT * FROM imageboard ORDER BY seq DESC) tt)
+					WHERE rn >= #{StartNum} AND rn <= #{EndNum}
+		]]>
+	</select>
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM imageboard
+	</select>
+	<select id="selectOne" parameterType="Integer" resultType="imageboard.bean.ImageboardDTO">
+		SELECT * FROM imageboard WHERE seq = #{seq}
+	</select>
+	<delete id="imageboardDelete2" parameterType="java.util.Map">
+		delete imageboard where seq in
+		<foreach collection="array" item="item" index="i" separator="," open="(" close=")">
+			<!-- #{item} index빼고 이렇게만 써도 된다. -->
+			${array[i]}
+		</foreach>
+	</delete>
+</mapper>

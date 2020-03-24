@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<span id="a">a</span>
+	<p>test
+		<span id="b">b</span>
+	</p>
+	<div>
+		<p>p</p>
+		<span id="c">c</span>
+	</div>
+	<div id="debugConsole" style="border: 1px solid #000;"/>
+</body>
+<script type="text/javascript" src="log.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+	var rootNode = document.documentElement;
+	log("root 태그: "+ rootNode.tagName);//HTML
+	var bodyNode = document.getElementsByTagName("body").item(0);
+	log("body 태그: "+ bodyNode.tagName);//BODY
+	var spanList = document.getElementsByTagName("span");
+	log("span 태그의 개수: "+ spanList.length);//3
+	
+	for(var i=0; i<spanList.length; i++){
+		var span = spanList.item(i);
+		log((i+1)+"번째 span의 id : "+span.getAttribute("id"));//
+	}
+	
+	var debugConsoleDiv = document.getElementById("debugConsole");
+	log("debugConsole 요소 : "+debugConsoleDiv.tagName);//DIV
+	
+	var bodyLastChild = bodyNode.lastChild;
+	log("body의 마지막 자식 노드: "+ bodyLastChild.nodeName);//#text
+}
+</script>
+</html>

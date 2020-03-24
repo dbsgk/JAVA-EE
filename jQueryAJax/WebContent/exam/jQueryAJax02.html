@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<form action="">
+	<label>이름을 입력하시오</label>
+	<input type="text" name="username" class="user">
+	<input type="button" id="submit" value="입력">
+</form>
+<br><br>
+<div id="message"></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+//submit을 누르면 데이터를 서버로 보내서 결과를 html로 받고 div 영역에 뿌린다.
+$('#submit').click(function() {
+	$.ajax({
+		type: 'post',
+		url: 'jQueryAJax02_data.jsp',
+		//data: 'username='+$('input[name=username]').val(),
+		data: 'username='+encodeURIComponent($('.user').val()),
+		//data: 'username='+$('.user').val(),
+		//data: {'username':$('.user').val()},
+		dataType: 'html',
+		success: function(data) {
+			$('#message').html(data);
+		}
+	});
+});
+</script>
+</html>

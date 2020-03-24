@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="dataArea"></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//$. == jquery.
+	$.ajax({
+		type: 'get',
+		url: 'jQueryAJax01_data.jsp?type=25', 
+		//data: 'type=25' 데이터 이렇게 보내도 되고 url태워서 보내도 되고
+		data: {'type':25}, //json표기법으로 데이터 보내는 법
+		dataType: 'text',//돌아올 데이터 타입
+		success: function(data){//돌아올 데이터가 data에 들어옴.  이름은 아무거나 써도됨. result라고 해도 됨
+			alert('성공!!');
+			$('#dataArea').text(data);
+		},
+		error: function(){
+			alert('실패!!');
+		}
+	});
+});
+</script>
+</html>
+<!-- 
+속성			설명
+type		http 전송 method를 지정한다.
+			GET, POST
+
+url			호출 URL
+			GET 방식일경우 URL 뒤에 파라미터를 붙여서 사용해도 된다.
+			
+data		서버로 보낼 데이터
+
+dataType	AJax를 통해 호출한 페이지의 Return 형식이다.
+			형식에 따라 xml, json, html, text 등을 사용하면 된다.
+			
+error		에러났을때의 처리 부분이다.
+
+success		성공했을떄의 처리 부분이다.
+			보통 해당 부분에서 데이터 핸들링을 하면 된다.
+
+  -->

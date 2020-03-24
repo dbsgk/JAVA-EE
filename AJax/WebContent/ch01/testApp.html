@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" name="inputForm"  >
+<table>
+<tr>
+<td>이름</td>
+<td><input type="text" name="name"></td>
+</tr>
+<tr>
+<td>생년월일</td>
+<td><input type="text" name="birth"></td>
+<tr>
+<td colspan="2"><input type="button" value="보내기" onclick="testToServer()"></td>
+</table>
+</form>
+</body>
+<script type="text/javascript">
+function testToServer(){
+	let name = encodeURIComponent(document.inputForm.name.value);
+	let birth = encodeURIComponent(document.inputForm.birth.value);
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = testFromServer;//뒤에 함수() 표시하면 안된다.
+	xhr.open("POST", "test.jsp", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//
+	xhr.send("name="+name+"&birth="+birth);
+}
+
+function testFromServer(){
+	if(xhr.readyState == 4){
+		if(xhr.status == 200){
+			alert(xhr.responseText);
+		}
+	}
+}
+</script>
+</html>

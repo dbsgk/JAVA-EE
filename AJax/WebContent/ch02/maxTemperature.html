@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+최근 4일간 최고기온: <span id="maxtemp"></span>
+</body>
+<script type="text/javascript">
+function loadList2(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = loadedList;
+	xhr.open("POST", "getMaxTemperature.jsp", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//
+	xhr.send("maxtemp"+maxtemp);
+}
+/* function loadList(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = loadedList;
+	xhr.open("GET", "getMaxTemperature.jsp?maxtemp="+maxtemp, true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//
+	xhr.send(null);
+} */
+function loadList(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = loadedList; //변화가 생기면 loadedList실행해라
+	xhr.open("GET", "getMaxTemperature.jsp", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");//
+	xhr.send(null);
+}
+function loadedList(){
+	if(xhr.readyState == 4){
+		if(xhr.status == 200){
+
+			let csvStr = xhr.responseText;//"10.2,11.8,12.9,9.0"
+			
+			//콤마로 읽어온 값을 분리
+			var temperatureStrs = csvStr.split(",");//"10.2" "11.8" "12.9" "9.0"
+			
+			var temperatures = new Array(temperatureStrs.length);
+			for(i =0; i < temperatureStrs.length; i++){
+				temperatures[i] = parseFloat(temperatureStrs[i]);
+			}
+			
+			let max = temperatures[0];
+			for(i=1; i<temperatures.length; i++){
+				if(temperatures[i] > max) max = temperatures[i];
+			}
+			
+			let maxtemp = document.getElementById("maxtemp");
+			maxtemp.innerHTML = "<strong>"+max+"</strong>";
+			
+			
+			//let maxtemp = document.getElementById("maxtemp");
+			//maxtemp.innerHTML = xhr.responseText;
+		}
+	}
+}
+window.onload = function (){
+	loadList();
+}
+</script>
+</html>
